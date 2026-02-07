@@ -1,9 +1,13 @@
 package com.union.demo.entity;
 import com.union.demo.enums.JwtRole;
+import com.union.demo.enums.PersonalityKey;
 import lombok.*;
 import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+
+import java.awt.*;
+import java.util.Map;
 
 @Entity
 @Table(name = "users")
@@ -31,7 +35,7 @@ public class Users extends BaseEntity{
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb") //jsonb 타입으로 받기
-    private Personality personality;
+    private Map<PersonalityKey, Integer> personality;
 
     @Enumerated(EnumType.STRING)
     @Column(name="jwt_role", nullable = false)

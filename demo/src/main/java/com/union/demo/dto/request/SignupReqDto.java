@@ -1,9 +1,7 @@
 package com.union.demo.dto.request;
 
-import com.union.demo.entity.Personality;
 import com.union.demo.enums.Gender;
 import com.union.demo.enums.Status;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -33,7 +31,7 @@ public class SignupReqDto {
     private String email;
     private Integer birthYear;
     private Gender gender;
-    private Integer universityId;
+    private Long universityId;
     private String major;
     private Integer entranceYear;
     private Status status;

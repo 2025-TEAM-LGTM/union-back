@@ -10,6 +10,7 @@ import com.union.demo.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -112,14 +113,14 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/auth/refresh",
                                 "/api/auth/login",
-                                "/api/members",
-                                "/api/posts",
                                 "/api/auth/signup",
                                 "/api/auth/logout",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
-                        ).permitAll() //누구나 접근 가능
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/members").permitAll()//누구나 접근 가능
                         .anyRequest().authenticated())//그 이외의 요청은 인증된 사용자만 접근이 가능
 
                 .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class)

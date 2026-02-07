@@ -3,6 +3,7 @@ package com.union.demo.service;
 import com.union.demo.dto.request.SignupReqDto;
 import com.union.demo.entity.Profile;
 import com.union.demo.entity.Role;
+import com.union.demo.entity.University;
 import com.union.demo.entity.Users;
 import com.union.demo.enums.JwtRole;
 import com.union.demo.repository.*;
@@ -27,6 +28,7 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final RefreshTokenRepository refreshTokenRepository;
     private final ProfileRepository profileRepository;
+    private final UniversityRepository universityRepository;
 
     //signup 회원가입
     @Transactional
@@ -79,12 +81,16 @@ public class AuthService {
     }
 
     //profile 정보 저장
+
     private Profile createProfileEntity(SignupReqDto signupReqDto, Users user){
+
+        University university=universityRepository.findByUnivId(signupReqDto.getUniversityId())
+                .orElseThrow(()->new IllegalArgumentException("존재하지 않는 대학 id 입니다."));
         return Profile.builder()
                 .user(user)
                 .email(signupReqDto.getEmail())
                 .birthYear(signupReqDto.getBirthYear())
-                .universityId(signupReqDto.getUniversityId())
+                .university(university)
                 .major(signupReqDto.getMajor())
                 .gender(signupReqDto.getGender())
                 .entranceYear(signupReqDto.getEntranceYear())

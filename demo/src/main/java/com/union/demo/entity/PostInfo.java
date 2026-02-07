@@ -1,10 +1,14 @@
 package com.union.demo.entity;
 
 import com.union.demo.enums.RecruitStatus;
+import com.union.demo.enums.TeamCultureKey;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import java.time.OffsetDateTime;
+import java.util.Map;
 
 @Entity
 @Getter
@@ -41,8 +45,9 @@ public class PostInfo {
     @Column(name = "about_us", columnDefinition = "text")
     private String aboutUs;
 
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "team_culture", columnDefinition = "jsonb")
-    private String teamCulture;
+    private Map<TeamCultureKey,Integer> teamCulture;
 
     @Column(name = "seeking", columnDefinition = "text")
     private String seeking;

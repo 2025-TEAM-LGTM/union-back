@@ -22,8 +22,9 @@ public class Profile {
 
     private String email;
 
-    @Column(name="university_id")
-    private Integer universityId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="university_id")
+    private University university;
 
     private String major;
 

@@ -38,14 +38,13 @@ public class Post extends BaseEntity{
             foreignKey = @ForeignKey(name = "post_second_domain_id_fkey"))
     private Domain secondDomainId;
 
-    // post_info.post_id -> post.post_id (FK는 post_info 쪽에 있음)
-    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY)
+    // post_info.post_id -> post.post_id
+    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
     private PostInfo postInfo;
 
     // post_recruit_role.post_id -> post.post_id
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
     private List<PostRecruitRole> recruitRoles = new ArrayList<>();
-
 
 
 }
