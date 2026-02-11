@@ -58,6 +58,7 @@ public class PostPageResDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class RoleCountDto{
         private Integer roleId;
+        private String roleName;
         private Integer count;
     }
 
@@ -91,6 +92,7 @@ public class PostPageResDto {
                         postCurrentRoles.stream()
                                 .map(cr -> RoleCountDto.builder()
                                         .roleId(cr.getRole().getRoleId())
+                                        .roleName(cr.getRole().getRoleName())
                                         .count(cr.getCount())
                                         .build()
                                 ).toList()
@@ -99,6 +101,7 @@ public class PostPageResDto {
                         post.getRecruitRoles().stream()
                                 .map(rr -> RoleCountDto.builder()
                                         .roleId(rr.getRole().getRoleId())
+                                        .roleName(rr.getRole().getRoleName())
                                         .count(rr.getCount())
                                         .build()
                                 )

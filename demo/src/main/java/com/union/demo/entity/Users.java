@@ -54,5 +54,8 @@ public class Users extends BaseEntity{
         return "ROLE_"+jwtRole.name();
     }
 
+    public void updatePersonality(Map<PersonalityKey, Integer> personality){this.personality=personality;}
+    public void updateImage(Image image){this.image=image;}
+
 
 }

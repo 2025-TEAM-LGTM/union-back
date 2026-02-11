@@ -1,5 +1,7 @@
 package com.union.demo.controller;
 
+import com.union.demo.dto.request.PostUpdateReqDto;
+import com.union.demo.dto.request.ProfileUpdateReqDto;
 import com.union.demo.dto.response.MyProfileResDto;
 import com.union.demo.dto.response.PostPageResDto;
 import com.union.demo.global.common.ApiResponse;
@@ -7,16 +9,13 @@ import com.union.demo.service.MeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/me")
 public class MeController {
     private final MeService meService;
-
 
     //[1. 프로필]
     //1.1 프로필 정보 가져오기 /api/me/profile
@@ -30,7 +29,14 @@ public class MeController {
 
 
     //1.2 프로필 정보 수정하기 /api/me/profile
-
+    @PatchMapping("/profile")
+    public ResponseEntity<ApiResponse<MyProfileResDto>> updateMyProfile(
+            @AuthenticationPrincipal Long userId,
+            @RequestBody ProfileUpdateReqDto profileUpdateReqDto
+            ){
+        MyProfileResDto data= meService.updateMyProfile(userId, profileUpdateReqDto);
+        return ResponseEntity.ok(ApiResponse.ok(data));
+    }
 
 
     //[2. 포트폴리오]

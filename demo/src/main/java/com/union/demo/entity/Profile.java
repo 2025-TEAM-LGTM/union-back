@@ -40,5 +40,11 @@ public class Profile {
     @Column(name="birth_year")
     private Integer birthYear;
 
+    public void updateEmail(String email){this.email=email;}
+    public void updateEntranceYear(Integer entranceYear){this.entranceYear=entranceYear;}
+    public void updateStatus(Status status){this.status=status;}
+    public void updateUniversity(University university){
+        this.university=university;
+    }
 
 }
