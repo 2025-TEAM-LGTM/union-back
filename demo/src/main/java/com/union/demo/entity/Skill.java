@@ -18,7 +18,6 @@ public class Skill {
     @JoinColumn(name="field_id",nullable = false)
     private Field field;
 
-
     @Column(name="skill_name", nullable = false,length = 50)
     private String skillName;
 

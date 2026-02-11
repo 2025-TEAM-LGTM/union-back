@@ -1,0 +1,597 @@
+WARNING: A terminally deprecated method in sun.misc.Unsafe has been called
+WARNING: sun.misc.Unsafe::staticFieldBase has been called by com.google.inject.internal.aop.HiddenClassDefiner (file:/opt/homebrew/Cellar/maven/3.9.11/libexec/lib/guice-5.1.0-classes.jar)
+WARNING: Please consider reporting this to the maintainers of class com.google.inject.internal.aop.HiddenClassDefiner
+WARNING: sun.misc.Unsafe::staticFieldBase will be removed in a future release
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------------< com.example:demo >--------------------------
+[INFO] Building union 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.0.2:run (default-cli) > test-compile @ demo >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ demo ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ demo ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 75 source files with javac [debug parameters release 21] to target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/config/SecurityConfig.java:[73,33] constructor LoginFilter in class com.union.demo.jwt.LoginFilter cannot be applied to given types;
+  required: no arguments
+  found:    org.springframework.security.authentication.AuthenticationManager,com.union.demo.jwt.JWTUtil,com.union.demo.repository.UserRepository,com.union.demo.service.RefreshTokenService
+  reason: actual and formal argument lists differ in length
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/config/SecurityConfig.java:[88,69] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/config/SecurityConfig.java:[100,69] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[29,21] cannot find symbol
+  symbol:   method getUserId()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[30,21] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[59,26] cannot find symbol
+  symbol:   method getUser()
+  location: variable stored of type com.union.demo.entity.RefreshToken
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[70,21] cannot find symbol
+  symbol:   method getUserId()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[71,21] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[75,51] cannot find symbol
+  symbol:   method getToken()
+  location: variable newRefresh of type com.union.demo.entity.RefreshToken
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[54,30] cannot find symbol
+  symbol:   method getUserId()
+  location: variable savedUser of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[55,33] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable savedUser of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[56,34] cannot find symbol
+  symbol:   method getUsername()
+  location: variable savedUser of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[58,27] constructor SignupResDto in class com.union.demo.dto.response.SignupResDto cannot be applied to given types;
+  required: no arguments
+  found:    java.lang.Long,java.lang.String,java.lang.String
+  reason: actual and formal argument lists differ in length
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[75,36] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable loginReqDto of type com.union.demo.dto.request.LoginReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[76,36] cannot find symbol
+  symbol:   method getPassword()
+  location: variable loginReqDto of type com.union.demo.dto.request.LoginReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[80,60] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable loginReqDto of type com.union.demo.dto.request.LoginReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[83,26] cannot find symbol
+  symbol:   method getUserId()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[84,28] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[90,38] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[98,26] constructor LoginResDto in class com.union.demo.dto.response.LoginResDto cannot be applied to given types;
+  required: no arguments
+  found:    java.lang.Long,java.lang.String,java.lang.String
+  reason: actual and formal argument lists differ in length
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[37,48] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable signUpReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[38,49] cannot find symbol
+  symbol:   method getUsername()
+  location: variable signUpReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[54,13] cannot find symbol
+  symbol:   variable log
+  location: class com.union.demo.service.AuthService
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[62,13] cannot find symbol
+  symbol:   variable log
+  location: class com.union.demo.service.AuthService
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[71,63] cannot find symbol
+  symbol:   method getMainRoleId()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[74,21] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[75,38] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[76,39] cannot find symbol
+  symbol:   method getUsername()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[77,68] cannot find symbol
+  symbol:   method getPassword()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[87,77] cannot find symbol
+  symbol:   method getUniversityId()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[89,23] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.entity.Profile
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[91,36] cannot find symbol
+  symbol:   method getEmail()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[92,40] cannot find symbol
+  symbol:   method getBirthYear()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[94,36] cannot find symbol
+  symbol:   method getMajor()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[95,37] cannot find symbol
+  symbol:   method getGender()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[96,43] cannot find symbol
+  symbol:   method getEntranceYear()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[97,37] cannot find symbol
+  symbol:   method getStatus()
+  location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/common/ApiResponse.java:[21,16] cannot infer type arguments for com.union.demo.global.common.ApiResponse<>
+  reason: cannot infer type-variable(s) T
+    (actual and formal argument lists differ in length)
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/common/ApiResponse.java:[26,27] cannot find symbol
+  symbol:   method <T>builder()
+  location: class com.union.demo.global.common.ApiResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/common/ApiResponse.java:[35,27] cannot find symbol
+  symbol:   method <java.lang.Void>builder()
+  location: class com.union.demo.global.common.ApiResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/DropdownService.java:[30,66] cannot find symbol
+  symbol:   method getUnivName()
+  location: variable u of type com.union.demo.entity.University
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/DropdownService.java:[30,51] cannot find symbol
+  symbol:   method getUnivId()
+  location: variable u of type com.union.demo.entity.University
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/DropdownService.java:[31,24] incompatible types: java.util.List<java.lang.Object> cannot be converted to java.util.List<com.union.demo.dto.response.DropDownItemResDto>
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/PostController.java:[47,29] cannot find symbol
+  symbol:   method getUserId()
+  location: variable leader of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[49,32] cannot find symbol
+  symbol:   method getPostInfo()
+  location: variable p of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[54,28] cannot find symbol
+  symbol:   method getRecruitRoles()
+  location: variable p of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[55,58] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.dto.response.PostListResDto.RecruitDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[67,49] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.dto.response.PostListResDto.PostSummaryDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[68,30] cannot find symbol
+  symbol:   method getPostId()
+  location: variable p of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[69,29] cannot find symbol
+  symbol:   method getTitle()
+  location: variable p of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[76,30] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.dto.response.PostListResDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[92,47] cannot find symbol
+  symbol:   method getPrimeDomainId()
+  location: variable post of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[92,71] cannot find symbol
+  symbol:   method getSecondDomainId()
+  location: variable post of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[94,22] invalid method reference
+  cannot find symbol
+    symbol:   method getDomainId()
+    location: class com.union.demo.entity.Domain
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[105,28] cannot find symbol
+  symbol:   method getRecruitPeriod()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[106,26] cannot find symbol
+  symbol:   method getRecruitPeriod()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[118,56] cannot find symbol
+  symbol:   method getDomainIds()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[134,23] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[136,27] cannot find symbol
+  symbol:   method getTitle()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[152,15] cannot find symbol
+  symbol:   method getTeamCulture()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[154,50] cannot find symbol
+  symbol:   method getTeamCulture()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[166,35] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.entity.PostInfo
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[169,29] cannot find symbol
+  symbol:   method getContact()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[172,29] cannot find symbol
+  symbol:   method getContact()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[173,33] cannot find symbol
+  symbol:   method getHomepageUrl()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[174,29] cannot find symbol
+  symbol:   method getSeeking()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[175,29] cannot find symbol
+  symbol:   method getAboutUs()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[183,32] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.dto.response.PostCreateResDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[184,34] cannot find symbol
+  symbol:   method getPostId()
+  location: variable savedPost of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[185,33] cannot find symbol
+  symbol:   method getUserId()
+  location: variable leader of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[186,33] cannot find symbol
+  symbol:   method getTitle()
+  location: variable savedPost of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[188,65] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.dto.response.PostCreateResDto.RecruitPeriodDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[192,29] cannot find symbol
+  symbol:   method getContact()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[193,33] cannot find symbol
+  symbol:   method getHomepageUrl()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[194,29] cannot find symbol
+  symbol:   method getSeeking()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[195,29] cannot find symbol
+  symbol:   method getAboutUs()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[197,30] cannot find symbol
+  symbol:   method getImageUrl()
+  location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[31,48] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[43,47] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[55,48] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[68,47] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[81,47] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[93,47] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[105,47] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[116,47] cannot find symbol
+  symbol:   method builder()
+  location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/jwt/LoginFilter.java:[54,50] cannot find symbol
+  symbol:   method getUserId()
+  location: class com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/jwt/LoginFilter.java:[55,53] cannot find symbol
+  symbol:   method getLoginId()
+  location: class com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/jwt/LoginFilter.java:[73,47] cannot find symbol
+  symbol:   method getToken()
+  location: variable saved of type com.union.demo.entity.RefreshToken
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/security/CustomUserDetails.java:[27,20] cannot find symbol
+  symbol:   method getPassword()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/security/CustomUserDetails.java:[33,20] cannot find symbol
+  symbol:   method getLoginId()
+  location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/security/CustomUserDetailsService.java:[26,13] cannot find symbol
+  symbol:   variable log
+  location: class com.union.demo.security.CustomUserDetailsService
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/security/CustomUserDetailsService.java:[30,16] constructor CustomUserDetails in class com.union.demo.security.CustomUserDetails cannot be applied to given types;
+  required: no arguments
+  found:    com.union.demo.entity.Users
+  reason: actual and formal argument lists differ in length
+[INFO] 92 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  1.725 s
+[INFO] Finished at: 2026-02-10T23:18:34+09:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project demo: Compilation failure: Compilation failure: 
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/config/SecurityConfig.java:[73,33] constructor LoginFilter in class com.union.demo.jwt.LoginFilter cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    org.springframework.security.authentication.AuthenticationManager,com.union.demo.jwt.JWTUtil,com.union.demo.repository.UserRepository,com.union.demo.service.RefreshTokenService
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/config/SecurityConfig.java:[88,69] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/config/SecurityConfig.java:[100,69] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[29,21] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[30,21] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[59,26] cannot find symbol
+[ERROR]   symbol:   method getUser()
+[ERROR]   location: variable stored of type com.union.demo.entity.RefreshToken
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[70,21] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[71,21] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/RefreshTokenService.java:[75,51] cannot find symbol
+[ERROR]   symbol:   method getToken()
+[ERROR]   location: variable newRefresh of type com.union.demo.entity.RefreshToken
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[54,30] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: variable savedUser of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[55,33] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable savedUser of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[56,34] cannot find symbol
+[ERROR]   symbol:   method getUsername()
+[ERROR]   location: variable savedUser of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[58,27] constructor SignupResDto in class com.union.demo.dto.response.SignupResDto cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    java.lang.Long,java.lang.String,java.lang.String
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[75,36] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable loginReqDto of type com.union.demo.dto.request.LoginReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[76,36] cannot find symbol
+[ERROR]   symbol:   method getPassword()
+[ERROR]   location: variable loginReqDto of type com.union.demo.dto.request.LoginReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[80,60] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable loginReqDto of type com.union.demo.dto.request.LoginReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[83,26] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[84,28] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[90,38] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/AuthController.java:[98,26] constructor LoginResDto in class com.union.demo.dto.response.LoginResDto cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    java.lang.Long,java.lang.String,java.lang.String
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[37,48] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable signUpReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[38,49] cannot find symbol
+[ERROR]   symbol:   method getUsername()
+[ERROR]   location: variable signUpReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[54,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.union.demo.service.AuthService
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[62,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.union.demo.service.AuthService
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[71,63] cannot find symbol
+[ERROR]   symbol:   method getMainRoleId()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[74,21] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[75,38] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[76,39] cannot find symbol
+[ERROR]   symbol:   method getUsername()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[77,68] cannot find symbol
+[ERROR]   symbol:   method getPassword()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[87,77] cannot find symbol
+[ERROR]   symbol:   method getUniversityId()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[89,23] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.entity.Profile
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[91,36] cannot find symbol
+[ERROR]   symbol:   method getEmail()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[92,40] cannot find symbol
+[ERROR]   symbol:   method getBirthYear()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[94,36] cannot find symbol
+[ERROR]   symbol:   method getMajor()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[95,37] cannot find symbol
+[ERROR]   symbol:   method getGender()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[96,43] cannot find symbol
+[ERROR]   symbol:   method getEntranceYear()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/AuthService.java:[97,37] cannot find symbol
+[ERROR]   symbol:   method getStatus()
+[ERROR]   location: variable signupReqDto of type com.union.demo.dto.request.SignupReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/common/ApiResponse.java:[21,16] cannot infer type arguments for com.union.demo.global.common.ApiResponse<>
+[ERROR]   reason: cannot infer type-variable(s) T
+[ERROR]     (actual and formal argument lists differ in length)
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/common/ApiResponse.java:[26,27] cannot find symbol
+[ERROR]   symbol:   method <T>builder()
+[ERROR]   location: class com.union.demo.global.common.ApiResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/common/ApiResponse.java:[35,27] cannot find symbol
+[ERROR]   symbol:   method <java.lang.Void>builder()
+[ERROR]   location: class com.union.demo.global.common.ApiResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/DropdownService.java:[30,66] cannot find symbol
+[ERROR]   symbol:   method getUnivName()
+[ERROR]   location: variable u of type com.union.demo.entity.University
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/DropdownService.java:[30,51] cannot find symbol
+[ERROR]   symbol:   method getUnivId()
+[ERROR]   location: variable u of type com.union.demo.entity.University
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/DropdownService.java:[31,24] incompatible types: java.util.List<java.lang.Object> cannot be converted to java.util.List<com.union.demo.dto.response.DropDownItemResDto>
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/controller/PostController.java:[47,29] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: variable leader of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[49,32] cannot find symbol
+[ERROR]   symbol:   method getPostInfo()
+[ERROR]   location: variable p of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[54,28] cannot find symbol
+[ERROR]   symbol:   method getRecruitRoles()
+[ERROR]   location: variable p of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[55,58] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.dto.response.PostListResDto.RecruitDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[67,49] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.dto.response.PostListResDto.PostSummaryDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[68,30] cannot find symbol
+[ERROR]   symbol:   method getPostId()
+[ERROR]   location: variable p of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[69,29] cannot find symbol
+[ERROR]   symbol:   method getTitle()
+[ERROR]   location: variable p of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[76,30] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.dto.response.PostListResDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[92,47] cannot find symbol
+[ERROR]   symbol:   method getPrimeDomainId()
+[ERROR]   location: variable post of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[92,71] cannot find symbol
+[ERROR]   symbol:   method getSecondDomainId()
+[ERROR]   location: variable post of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[94,22] invalid method reference
+[ERROR]   cannot find symbol
+[ERROR]     symbol:   method getDomainId()
+[ERROR]     location: class com.union.demo.entity.Domain
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[105,28] cannot find symbol
+[ERROR]   symbol:   method getRecruitPeriod()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[106,26] cannot find symbol
+[ERROR]   symbol:   method getRecruitPeriod()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[118,56] cannot find symbol
+[ERROR]   symbol:   method getDomainIds()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[134,23] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[136,27] cannot find symbol
+[ERROR]   symbol:   method getTitle()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[152,15] cannot find symbol
+[ERROR]   symbol:   method getTeamCulture()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[154,50] cannot find symbol
+[ERROR]   symbol:   method getTeamCulture()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[166,35] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.entity.PostInfo
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[169,29] cannot find symbol
+[ERROR]   symbol:   method getContact()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[172,29] cannot find symbol
+[ERROR]   symbol:   method getContact()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[173,33] cannot find symbol
+[ERROR]   symbol:   method getHomepageUrl()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[174,29] cannot find symbol
+[ERROR]   symbol:   method getSeeking()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[175,29] cannot find symbol
+[ERROR]   symbol:   method getAboutUs()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[183,32] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.dto.response.PostCreateResDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[184,34] cannot find symbol
+[ERROR]   symbol:   method getPostId()
+[ERROR]   location: variable savedPost of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[185,33] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: variable leader of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[186,33] cannot find symbol
+[ERROR]   symbol:   method getTitle()
+[ERROR]   location: variable savedPost of type com.union.demo.entity.Post
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[188,65] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.dto.response.PostCreateResDto.RecruitPeriodDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[192,29] cannot find symbol
+[ERROR]   symbol:   method getContact()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[193,33] cannot find symbol
+[ERROR]   symbol:   method getHomepageUrl()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[194,29] cannot find symbol
+[ERROR]   symbol:   method getSeeking()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[195,29] cannot find symbol
+[ERROR]   symbol:   method getAboutUs()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/service/PostService.java:[197,30] cannot find symbol
+[ERROR]   symbol:   method getImageUrl()
+[ERROR]   location: variable req of type com.union.demo.dto.request.PostCreateReqDto
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[31,48] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[43,47] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[55,48] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[68,47] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[81,47] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[93,47] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[105,47] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/global/exception/GlobalExceptionHandler.java:[116,47] cannot find symbol
+[ERROR]   symbol:   method builder()
+[ERROR]   location: class com.union.demo.global.common.ApiErrorResponse
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/jwt/LoginFilter.java:[54,50] cannot find symbol
+[ERROR]   symbol:   method getUserId()
+[ERROR]   location: class com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/jwt/LoginFilter.java:[55,53] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: class com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/jwt/LoginFilter.java:[73,47] cannot find symbol
+[ERROR]   symbol:   method getToken()
+[ERROR]   location: variable saved of type com.union.demo.entity.RefreshToken
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/security/CustomUserDetails.java:[27,20] cannot find symbol
+[ERROR]   symbol:   method getPassword()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/security/CustomUserDetails.java:[33,20] cannot find symbol
+[ERROR]   symbol:   method getLoginId()
+[ERROR]   location: variable user of type com.union.demo.entity.Users
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/security/CustomUserDetailsService.java:[26,13] cannot find symbol
+[ERROR]   symbol:   variable log
+[ERROR]   location: class com.union.demo.security.CustomUserDetailsService
+[ERROR] /Users/bluejay/uniON/uniON_back/demo/src/main/java/com/union/demo/security/CustomUserDetailsService.java:[30,16] constructor CustomUserDetails in class com.union.demo.security.CustomUserDetails cannot be applied to given types;
+[ERROR]   required: no arguments
+[ERROR]   found:    com.union.demo.entity.Users
+[ERROR]   reason: actual and formal argument lists differ in length
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
