@@ -6,6 +6,8 @@ import com.union.demo.entity.Role;
 import com.union.demo.entity.University;
 import com.union.demo.entity.Users;
 import com.union.demo.enums.JwtRole;
+import com.union.demo.enums.PersonalityKey;
+import com.union.demo.enums.TeamCultureKey;
 import com.union.demo.repository.*;
 import com.union.demo.utill.CookieUtil;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 //jwt 기준
@@ -63,6 +67,25 @@ public class AuthService {
             throw new IllegalStateException("이미 사용중인 이름입니다.");
         }
     }
+    //personality convert
+    private Map<PersonalityKey, Integer> convertedPersonality(
+            Map<String, Integer> personality
+    ){
+        Map<PersonalityKey, Integer> convertedPersonality = new EnumMap<>(PersonalityKey.class);
+        if(personality!=null) {
+            for (Map.Entry<String, Integer> entry : personality.entrySet()) {
+                try {
+                    PersonalityKey key = PersonalityKey.valueOf(entry.getKey());
+                    convertedPersonality.put(key, entry.getValue());
+                } catch (IllegalArgumentException e) {
+                    throw new IllegalArgumentException(
+                            "잘못된 personality." + entry.getKey()
+                    );
+                }
+            }
+        }
+        return convertedPersonality;
+    }
 
     // users 정보 저장: user entity 생성(비밀번호 암호화 적용)
     private Users createUserEntity(SignupReqDto signupReqDto){
@@ -77,6 +100,7 @@ public class AuthService {
                 .password(bCryptPasswordEncoder.encode(signupReqDto.getPassword()))
                 .mainRoleId(mainRole)
                 .jwtRole(JwtRole.USER) //기본값은 USER
+                .personality(convertedPersonality(signupReqDto.getPersonality()))   //personality 변환
                 .build();
     }
 

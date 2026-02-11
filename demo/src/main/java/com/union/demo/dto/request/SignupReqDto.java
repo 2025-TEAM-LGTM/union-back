@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,6 +28,7 @@ public class SignupReqDto {
     private String username;
     private Long mainRoleId;
 
+    private Map<String, Integer> personality; //성격 정보 추가
 
     //user_profile
     private String email;
@@ -35,5 +38,6 @@ public class SignupReqDto {
     private String major;
     private Integer entranceYear;
     private Status status;
+
 
 }
