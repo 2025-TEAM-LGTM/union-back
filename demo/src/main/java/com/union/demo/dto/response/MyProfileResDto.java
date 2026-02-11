@@ -12,7 +12,6 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-
 public class MyProfileResDto {
     private String username;
     private String profileImageUrl;
