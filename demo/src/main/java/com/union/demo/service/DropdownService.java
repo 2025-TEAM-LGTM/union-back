@@ -11,6 +11,7 @@ import com.union.demo.repository.SkillRepository;
 import com.union.demo.repository.UniversityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class DropdownService {
     public List<DropDownItemResDto> dropdownRole(Long fieldId){
         List<Role> roles;
 
-        roles = roleRepository.findByFieldId(fieldId);
+        roles = roleRepository.findByField(fieldId);
 
         return roles.stream()
                 // id가 long과 integer가 섞임 - upcasting으로 해결

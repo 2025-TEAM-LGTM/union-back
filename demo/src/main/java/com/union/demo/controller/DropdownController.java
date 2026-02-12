@@ -1,5 +1,7 @@
 package com.union.demo.controller;
 
+import com.union.demo.dto.response.DropDownItemResDto;
+import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.DropdownService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -8,32 +10,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/dropdown")
 @RequiredArgsConstructor
 public class DropdownController {
-    private final DropdownService dropdownService;
-    //1. 대학 드롭다운 /api/dropdown/university?q=이화
-    @GetMapping("/universities")
-    public ResponseEntity<?> getUniversities(@RequestParam(name = "q") String keyword){
-        return ResponseEntity.ok(dropdownService.dropdownUniversity(keyword));
-    }
+        private final DropdownService dropdownService;
+        //1. 대학 드롭다운 /api/dropdown/universities?q=이화
+        @GetMapping("/universities")
+        public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getUniversities(@RequestParam(name = "q") String keyword){
+            System.out.println("GET /universities q=" + keyword);
+            return ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownUniversity(keyword)));
+        }
 
-    //2. field, role 드롭다운 /api/dropdown/roles?fieldId=100
-    @GetMapping("/roles")
-    public ResponseEntity<?> getRoles(@RequestParam Long fieldId){
-        return ResponseEntity.ok(dropdownService.dropdownRole(fieldId));
+        //2. field, role 드롭다운 /api/dropdown/roles?fieldId=100
+        @GetMapping("/roles")
+        public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getRoles(@RequestParam Long fieldId){
+        return ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownRole(fieldId)));
     }
 
     //3. field, skill 드롭다운 /api/dropdown/skills?fieldId=100
     @GetMapping("/skills")
-    public ResponseEntity<?> getSkills(@RequestParam Integer fieldId){
-        return  ResponseEntity.ok(dropdownService.dropdownSkill(fieldId));
+    public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getSkills(@RequestParam Integer fieldId){
+        return  ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownSkill(fieldId)));
     }
 
     //4. domain 드롭다운 /api/dropdown/domains
     @GetMapping("/domains")
-    public ResponseEntity<?> getDomains(){
-        return ResponseEntity.ok(dropdownService.dropdownDomain());
+    public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getDomains(){
+        return ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownDomain()));
     }
 }
