@@ -5,7 +5,6 @@ import com.union.demo.dto.request.ProfileUpdateReqDto;
 import com.union.demo.dto.response.MyProfileResDto;
 import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
-import com.union.demo.entity.Users;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.repository.UserRepository;
 import com.union.demo.service.MeService;
@@ -58,17 +57,33 @@ public class MeController {
     public ResponseEntity<ApiResponse<PortfolioDetailResDto>> createPortfolio(
             @AuthenticationPrincipal Long userId,
             @RequestBody PortfolioPostReqDto req
-            ){
-
+            )
+    {
         PortfolioDetailResDto data=meService.createPortfolio(userId, req);
         return ResponseEntity.ok(ApiResponse.ok(data));
     }
 
 
     //2.3 포트폴리오 세부 페이지 /api/me/portfolios/{portfolioId}
+    @GetMapping("/portfolio/{portfolioId}")
+    public ResponseEntity<ApiResponse<PortfolioDetailResDto>> getPortfolioDetail(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable Long portfolioId
+    ){
+        PortfolioDetailResDto data=meService.getPortfolioDetail(userId, portfolioId);
+        return ResponseEntity.ok(ApiResponse.ok(data));
+    }
 
 
     //2.4 포트폴리오 삭제하기 /api/me/portfolios/{portfolioId}
+    @DeleteMapping("/portfolio/{portfolioId}")
+    public ResponseEntity<ApiResponse<?>> deletePortfolio(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable Long portfolioId
+    ){
+        meService.deletePortfolio(userId, portfolioId);
+        return ResponseEntity.ok(ApiResponse.ok());
+    }
 
 
     //2.5 포트폴리오 수정하기 /api/me/portfolios/{portfolioId}

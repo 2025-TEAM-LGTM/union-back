@@ -63,7 +63,7 @@ public class GlobalExceptionHandler {
     }
 
     //403: 권한 없음: 로그인은 되어있지만 이 리소스를 쓸 권한이 없음 ex. 본인 글이 아닌데 삭제 시도
-    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiErrorResponse> handleAccessDeniedException(AccessDeniedException e){
         ApiErrorResponse body=ApiErrorResponse.builder()
                 .status(HttpStatus.FORBIDDEN.value())
