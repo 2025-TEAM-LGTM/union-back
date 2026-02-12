@@ -1,7 +1,6 @@
 package com.union.demo.service;
 
 import com.union.demo.dto.response.MemberListResDto;
-import com.union.demo.dto.response.MemberListResDto.HardSkillDto;
 import com.union.demo.entity.UserSkill;
 import com.union.demo.entity.Users;
 import com.union.demo.enums.PersonalityKey;
@@ -44,13 +43,13 @@ public class MemberService{
         //userSkill
         List<UserSkill> userSkills = userSkillRepository.findAllByUserIdInWithSkill(userIds);
         //userId를 기준으로 skill 들을 묶는 것
-        Map<Long, List<HardSkillDto>> skillsByUserId = userSkills.stream()
+        Map<Long, List<MemberListResDto.ItemDto>> skillsByUserId = userSkills.stream()
                 .collect(Collectors.groupingBy(
                         us -> us.getUser().getUserId(),
                         Collectors.mapping(
-                                us -> HardSkillDto.builder()
-                                        .hardSkillId(us.getSkill().getSkillId())
-                                        .hardSkillName(us.getSkill().getSkillName())
+                                us -> MemberListResDto.ItemDto.builder()
+                                        .id(us.getSkill().getSkillId())
+                                        .name(us.getSkill().getSkillName())
                                         .build(),
                                 Collectors.toList())
                 ));

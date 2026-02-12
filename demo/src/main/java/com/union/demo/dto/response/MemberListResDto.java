@@ -20,29 +20,23 @@ public class MemberListResDto {
         private Long userId;
         private String username;
         private String profileImageUrl;
-        private RoleDto role;
-        private List<HardSkillDto> hardSkill;
+        private ItemDto role;
+        private List<ItemDto> hardSkill;
         private Map<PersonalityKey, Integer> personality;
     }
 
     @Getter@Builder
     @AllArgsConstructor @NoArgsConstructor(access= AccessLevel.PROTECTED)
-    public static class RoleDto{
-        private Integer roleId;
-        private String roleName;
+    public static class ItemDto{
+        private Integer id;
+        private String name;
     }
 
-    @Getter@Builder
-    @AllArgsConstructor @NoArgsConstructor(access= AccessLevel.PROTECTED)
-    public static class HardSkillDto{
-        private Integer hardSkillId;
-        private String hardSkillName;
-    }
 
     //mapping
     public static MemberDto from(
             Users user,
-            List<HardSkillDto> skills
+            List<ItemDto> skills
     ){
         Role r=user.getMainRoleId();
 
@@ -50,14 +44,14 @@ public class MemberListResDto {
                 .userId(user.getUserId())
                 .username(user.getUsername())
                 .profileImageUrl(user.getImage().getImageUrl())
-                .role(RoleDto.builder()
-                        .roleId(r.getRoleId())
-                        .roleName(r.getRoleName())
+                .role(ItemDto.builder()
+                        .id(r.getRoleId())
+                        .name(r.getRoleName())
                         .build())
                 .hardSkill(user.getUserSkills().stream()
-                        .map(skill -> HardSkillDto.builder()
-                                .hardSkillId(skill.getSkill().getSkillId())
-                                .hardSkillName(skill.getSkill().getSkillName())
+                        .map(skill -> ItemDto.builder()
+                                .id(skill.getSkill().getSkillId())
+                                .name(skill.getSkill().getSkillName())
                                 .build()
                         ).toList())
                 .personality(user.getPersonality())

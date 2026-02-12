@@ -1,7 +1,10 @@
 package com.union.demo.service;
 
+import com.union.demo.dto.request.PortfolioPostReqDto;
 import com.union.demo.dto.request.ProfileUpdateReqDto;
 import com.union.demo.dto.response.MyProfileResDto;
+import com.union.demo.dto.response.PortfolioDetailResDto;
+import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.entity.*;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.enums.Status;
@@ -12,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sound.sampled.Port;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,6 +28,9 @@ public class MeService {
     private final ImageRepository imageRepository;
     private final UserSkillRepository userSkillRepository;
     private final SkillRepository skillRepository;
+    private final PortfolioRepository portfolioRepository;
+    private final DomainRepository domainRepository;
+    private final RoleRepository roleRepository;
 
 
     //1. getProfile 프로필 조회
@@ -167,8 +174,65 @@ public class MeService {
     }
 
     //3. getPortfolios 포폴 목록 조회
+    public PortfolioListResDto getPortfolioList(Long userId){
+        userRepository.findByUserId(userId)
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자 입니다."+userId));
+
+        List<Portfolio> portfolios= portfolioRepository.findPortfolioByUserId(userId);
+
+        return PortfolioListResDto.from(portfolios);
+
+    }
 
     //4. postPortfolio 포폴 업로드
+    public PortfolioDetailResDto createPortfolio(Long userId, PortfolioPostReqDto req){
+        //user 확인
+        Users user=userRepository.findByUserId(userId)
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자 입니다."+userId));
+
+        //domain, role id 유효성 확인
+        Domain domain=domainRepository.findByDomainId(req.getDomainId())
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 domainId 입니다."+req.getDomainId()));
+        Role role=roleRepository.findByRoleId(req.getRoleId())
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 roleId 입니다."+req.getRoleId()));
+
+        //role로 field 찾기
+        Field field=roleRepository.findFieldByRoleId(role.getRoleId())
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 field 입니다."));
+
+
+        //image 저장
+        //image api 처리 이후 수정 필요
+        Image image=null;
+        if(req.getImageUrl()!=null && !req.getImageUrl().isBlank()){
+            image=imageRepository.save(
+                    Image.builder()
+                            .imageUrl(req.getImageUrl())
+                            .build()
+            );
+        }
+
+        //portfolio 생성 및 저장
+        Portfolio newPortfolio= Portfolio.builder()
+                .user(user)
+                .title(req.getTitle())
+                .summary(req.getSummary())
+                .domain(domain)
+                .role(role)
+                .headcount(req.getHeadcount())
+                .externUrl(req.getExternUrl())
+                .Stext(req.getStext())
+                .Ttext(req.getTtext())
+                .Atext(req.getAtext())
+                .Rtext(req.getRtext())
+                .build();
+
+        Portfolio saved=portfolioRepository.save(newPortfolio);
+
+        return PortfolioDetailResDto.from(saved);
+
+    }
+
 
     //5. updatePortfolio 포폴 수정
 

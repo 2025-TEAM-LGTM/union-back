@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class DropDownItemResDto {
-    private Long value;
-    private String label;
+    private Long id;
+    private String name;
 }
 
 
