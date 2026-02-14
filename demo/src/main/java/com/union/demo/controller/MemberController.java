@@ -1,16 +1,14 @@
 package com.union.demo.controller;
 
 import com.union.demo.dto.response.MemberListResDto;
+import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.MemberService;
 import com.union.demo.utill.PersonalityParserUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +32,15 @@ public class MemberController {
 
         }
 
-    //2. 팀원 프로필 보기  /api/members/{memberId}
+    //2. 팀원 프로필 보기  /api/members/{memberId}/profile
+    @GetMapping("/{memberId}/profile")
+    public ResponseEntity<ApiResponse<ProfileResDto>> getMemberProfile(
+            @PathVariable(required = true) Long memberId
+    ){
+        ProfileResDto data=memberService.getMemberProfile(memberId);
+        return ResponseEntity.ok(ApiResponse.ok(data));
+
+    }
+
 
 }

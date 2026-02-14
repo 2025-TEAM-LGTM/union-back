@@ -12,35 +12,25 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MyProfileResDto {
+public class ProfileResDto {
     private String username;
     private String profileImageUrl;
     private Integer birthYear;
-    private RoleResDto mainRole;
+    private ItemDto mainRole;
     private String email;
     private UnivResDto university;
     private Integer entranceYear;
     private String status;
-    private List<HardSkillDto> hardSkills;
+    private List<ItemDto> hardSkills;
     private Map<PersonalityKey, Integer> personality;
 
     @Getter
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class RoleResDto{
-        private Integer roleId;
-        private String roleName;
-    }
-
-    @Getter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class HardSkillDto{
-        private Integer skillId;
-        private String skillName;
-
+    public static class ItemDto{
+        private Integer id;
+        private String name;
     }
 
     @Getter
@@ -48,34 +38,34 @@ public class MyProfileResDto {
     @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class UnivResDto{
-        private Long univId;
-        private String univName;
+        private Long id;
+        private String name;
     }
 
     //dto 만들기
-    public static MyProfileResDto from(
+    public static ProfileResDto from(
             Users user,
             Profile profile
     ){
-        return MyProfileResDto.builder()
+        return ProfileResDto.builder()
                 .username(user.getUsername())
                 .profileImageUrl(user.getImage()!=null? user.getImage().getImageUrl():null)
                 .birthYear(profile.getBirthYear())
-                .mainRole(RoleResDto.builder()
-                        .roleId(user.getMainRoleId().getRoleId())
-                        .roleName(user.getMainRoleId().getRoleName()  )
+                .mainRole(ItemDto.builder()
+                        .id(user.getMainRoleId().getRoleId())
+                        .name(user.getMainRoleId().getRoleName()  )
                         .build())
                 .email(profile.getEmail())
                 .university(UnivResDto.builder()
-                        .univId(profile.getUniversity().getUnivId())
-                        .univName(profile.getUniversity().getUnivName())
+                        .id(profile.getUniversity().getUnivId())
+                        .name(profile.getUniversity().getUnivName())
                         .build())
                 .entranceYear(profile.getEntranceYear())
                 .status(profile.getStatus().toString())
                 .hardSkills(user.getUserSkills().stream()
-                        .map(skill -> HardSkillDto.builder()
-                                .skillId(skill.getSkill().getSkillId())
-                                .skillName(skill.getSkill().getSkillName())
+                        .map(skill -> ItemDto.builder()
+                                .id(skill.getSkill().getSkillId())
+                                .name(skill.getSkill().getSkillName())
                                 .build()
                         ).toList())
                 .personality(user.getPersonality())

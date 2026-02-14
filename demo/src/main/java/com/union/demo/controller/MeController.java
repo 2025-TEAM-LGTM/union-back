@@ -2,7 +2,7 @@ package com.union.demo.controller;
 
 import com.union.demo.dto.request.PortfolioPostReqDto;
 import com.union.demo.dto.request.ProfileUpdateReqDto;
-import com.union.demo.dto.response.MyProfileResDto;
+import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.global.common.ApiResponse;
@@ -23,20 +23,20 @@ public class MeController {
     //[1. 프로필]
     //1.1 프로필 정보 가져오기 /api/me/profile
     @GetMapping("/profile")
-    public ResponseEntity<ApiResponse<MyProfileResDto>> getMyProfile(
+    public ResponseEntity<ApiResponse<ProfileResDto>> getMyProfile(
             @AuthenticationPrincipal Long userId
     ){
-        MyProfileResDto data= meService.getMyProfile(userId);
+        ProfileResDto data= meService.getMyProfile(userId);
         return ResponseEntity.ok(ApiResponse.ok(data));
     }
 
     //1.2 프로필 정보 수정하기 /api/me/profile
     @PatchMapping("/profile")
-    public ResponseEntity<ApiResponse<MyProfileResDto>> updateMyProfile(
+    public ResponseEntity<ApiResponse<ProfileResDto>> updateMyProfile(
             @AuthenticationPrincipal Long userId,
             @RequestBody ProfileUpdateReqDto profileUpdateReqDto
     ){
-        MyProfileResDto data= meService.updateMyProfile(userId, profileUpdateReqDto);
+        ProfileResDto data= meService.updateMyProfile(userId, profileUpdateReqDto);
         return ResponseEntity.ok(ApiResponse.ok(data));
     }
 

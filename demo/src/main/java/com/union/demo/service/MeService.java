@@ -2,7 +2,7 @@ package com.union.demo.service;
 
 import com.union.demo.dto.request.PortfolioPostReqDto;
 import com.union.demo.dto.request.ProfileUpdateReqDto;
-import com.union.demo.dto.response.MyProfileResDto;
+import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.entity.*;
@@ -11,11 +11,9 @@ import com.union.demo.enums.Status;
 import com.union.demo.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.sound.sampled.Port;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,7 +32,7 @@ public class MeService {
 
 
     //1. getProfile 프로필 조회
-    public MyProfileResDto getMyProfile(Long userId){
+    public ProfileResDto getMyProfile(Long userId){
         //유저 존재여부 확인
         Users user =userRepository.findByUserId(userId)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 userId입니다."));
@@ -45,7 +43,7 @@ public class MeService {
 
 
         //return
-        return MyProfileResDto.from(
+        return ProfileResDto.from(
                 user, profile
         );
 
@@ -53,7 +51,7 @@ public class MeService {
 
     //2. updateProfile 프로필 수정
     @Transactional
-    public MyProfileResDto updateMyProfile(Long userId, ProfileUpdateReqDto req){
+    public ProfileResDto updateMyProfile(Long userId, ProfileUpdateReqDto req){
 
         //유저 존재여부 확인
         Users user =userRepository.findByUserId(userId)
@@ -166,7 +164,7 @@ public class MeService {
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 profile입니다."));
         Users updatedUser=userRepository.findByUserId(userId)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 user입니다."));
-        return MyProfileResDto.from(updatedUser,updatedProfile);
+        return ProfileResDto.from(updatedUser,updatedProfile);
     }
 
     //3. getPortfolios 포폴 목록 조회
