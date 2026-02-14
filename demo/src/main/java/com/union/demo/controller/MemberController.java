@@ -1,12 +1,14 @@
 package com.union.demo.controller;
 
 import com.union.demo.dto.response.MemberListResDto;
+import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.MemberService;
 import com.union.demo.utill.PersonalityParserUtil;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +58,15 @@ public class MemberController {
 
 
     //4. 팀원의 포트폴리오 상세 보기
+    @GetMapping("/{memberId}/portfolio/{portfolioId}")
+    public ResponseEntity<ApiResponse<PortfolioDetailResDto>> getMemberPortfolioDetail(
+            @PathVariable(required = true) Long memberId,
+            @PathVariable(required = true) Long portfolioId
+    ){
+        PortfolioDetailResDto data= memberService.getMemberPortfolioDetail(memberId, portfolioId);
+        return ResponseEntity.ok(ApiResponse.ok(data));
+
+    }
 
 
 }

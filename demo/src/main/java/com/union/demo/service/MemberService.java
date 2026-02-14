@@ -1,6 +1,7 @@
 package com.union.demo.service;
 
 import com.union.demo.dto.response.MemberListResDto;
+import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.entity.Portfolio;
@@ -10,6 +11,7 @@ import com.union.demo.entity.Users;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.repository.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,11 +89,25 @@ public class MemberService{
 
     //getMemberPortfolioList 함수: 팀원 포폴 리스트 조회
     public PortfolioListResDto getMemberPortfolioList(Long memberId){
-        Users user=userRepository.findByUserId(memberId)
+        userRepository.findByUserId(memberId)
                 .orElseThrow(()-> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         List<Portfolio> portfolio=portfolioRepository.findPortfolioByUserId(memberId);
 
         return PortfolioListResDto.from(portfolio);
+    }
+
+    //getMemberPortfolioDetail: 팀원의 상세 포트폴리오 조회
+    public PortfolioDetailResDto getMemberPortfolioDetail(Long memberId, Long portfolioId){
+       userRepository.findByUserId(memberId)
+               .orElseThrow(()-> new NoSuchElementException("사용자를 찾을 수 없습니다."));
+
+        Portfolio portfolio=portfolioRepository.findDetailByPortfolioId(portfolioId)
+                .orElseThrow(()-> new NoSuchElementException("해당 포트폴리오를 찾을 수 없습니다."));
+
+        if(!portfolio.getUser().getUserId().equals(memberId)){
+            throw new AccessDeniedException("포트폴리오 작성자의 id와 memberId가 서로 다릅니다.");
+        }
+        return PortfolioDetailResDto.from(portfolio);
     }
 }
