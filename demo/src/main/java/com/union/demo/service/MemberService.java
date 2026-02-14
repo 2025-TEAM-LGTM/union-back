@@ -1,15 +1,14 @@
 package com.union.demo.service;
 
 import com.union.demo.dto.response.MemberListResDto;
+import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.dto.response.ProfileResDto;
+import com.union.demo.entity.Portfolio;
 import com.union.demo.entity.Profile;
 import com.union.demo.entity.UserSkill;
 import com.union.demo.entity.Users;
 import com.union.demo.enums.PersonalityKey;
-import com.union.demo.repository.MemberRepository;
-import com.union.demo.repository.ProfileRepository;
-import com.union.demo.repository.UserRepository;
-import com.union.demo.repository.UserSkillRepository;
+import com.union.demo.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +27,7 @@ public class MemberService{
     private final UserSkillRepository userSkillRepository;
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
+    private final PortfolioRepository portfolioRepository;
 
     // getMembers 함수 + 필터링
     public MemberListResDto getMembers(
@@ -83,5 +83,15 @@ public class MemberService{
 
         return ProfileResDto.from(user, profile);
 
+    }
+
+    //getMemberPortfolioList 함수: 팀원 포폴 리스트 조회
+    public PortfolioListResDto getMemberPortfolioList(Long memberId){
+        Users user=userRepository.findByUserId(memberId)
+                .orElseThrow(()-> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        List<Portfolio> portfolio=portfolioRepository.findPortfolioByUserId(memberId);
+
+        return PortfolioListResDto.from(portfolio);
     }
 }

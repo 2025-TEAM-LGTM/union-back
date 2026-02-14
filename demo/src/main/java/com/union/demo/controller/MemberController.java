@@ -1,6 +1,7 @@
 package com.union.demo.controller;
 
 import com.union.demo.dto.response.MemberListResDto;
+import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.global.common.ApiResponse;
@@ -41,6 +42,20 @@ public class MemberController {
         return ResponseEntity.ok(ApiResponse.ok(data));
 
     }
+
+    //3. 팀원의 포트폴리오 리스트 보기
+    @GetMapping("/{memberId}/portfolio")
+    public ResponseEntity<ApiResponse<PortfolioListResDto>> getMemberPortfolioList(
+            @PathVariable(required = true) Long memberId
+    ){
+        PortfolioListResDto data=memberService.getMemberPortfolioList(memberId);
+;
+    return ResponseEntity.ok(ApiResponse.ok(data));
+    };
+
+
+
+    //4. 팀원의 포트폴리오 상세 보기
 
 
 }
