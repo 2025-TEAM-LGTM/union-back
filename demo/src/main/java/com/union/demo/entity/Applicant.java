@@ -11,7 +11,15 @@ import java.time.OffsetDateTime;
 
 @Entity
 @Getter
-@Table(name="post_apply")
+@Table(name="post_apply",
+    uniqueConstraints = {
+        @UniqueConstraint(
+                name="uk_post_user",
+                columnNames = {"post_id","user_id"}
+        )
+    }
+
+)
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Applicant {
