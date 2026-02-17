@@ -56,4 +56,54 @@ public class Portfolio extends BaseEntity{
     @Column(name="r_text", columnDefinition = "text")
     private String Rtext;
 
+
+    public void updateTitle(String title){
+        this.title=title;
+    }
+
+    public void updateHeadcount(Integer headcount){
+        this.headcount=headcount;
+    }
+
+    public void updateExternUrl(String externUrl){
+        this.externUrl=externUrl;
+    }
+
+    public void updateSummary(String summary){
+        this.summary=summary;
+    }
+
+    public void updateStext(String Stext){
+        this.Stext=Stext;
+    }
+
+    public void updateTtext(String Ttext){
+        this.Ttext=Ttext;
+    }
+
+    public void updateAtext(String Atext){
+        this.Atext=Atext;
+    }
+
+    public void updateRtext(String Rtext){
+        this.Rtext=Rtext;
+    }
+
+    public void updateImage(Image image){
+        this.image=image;
+    }
+
+    public void updateImageUrl(String imageUrl){
+
+    }
+
+    public void updateDomain(Domain domain){
+        this.domain=domain;
+    }
+
+    public void updateRole(Role role){
+        this.role=role;
+    }
+
+
 }

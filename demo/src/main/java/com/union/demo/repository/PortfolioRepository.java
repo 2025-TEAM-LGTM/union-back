@@ -25,6 +25,8 @@ order by p.portfolioId desc
 
     Optional<Portfolio> findDetailByPortfolioId(@Param("portfolioId") Long portfolioId);
 
+    Optional<Portfolio> findPortfolioByPortfolioId(Long portfolioId);
+
     void deletePortfolioByPortfolioId(Long portfolioId);
 
 }

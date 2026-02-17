@@ -1,6 +1,7 @@
 package com.union.demo.controller;
 
 import com.union.demo.dto.request.PortfolioPostReqDto;
+import com.union.demo.dto.request.PortfolioUpdateReqDto;
 import com.union.demo.dto.request.ProfileUpdateReqDto;
 import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.dto.response.PortfolioDetailResDto;
@@ -87,4 +88,13 @@ public class MeController {
 
 
     //2.5 포트폴리오 수정하기 /api/me/portfolios/{portfolioId}
+    @PatchMapping("/portfolio/{portfolioId}")
+    public ResponseEntity<ApiResponse<PortfolioDetailResDto>> updatePortfolio(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable Long portfolioId,
+            @RequestBody PortfolioUpdateReqDto req
+    ){
+        PortfolioDetailResDto data=meService.updatePortfolio(userId, portfolioId, req);
+        return ResponseEntity.ok(ApiResponse.ok(data));
+    }
 }

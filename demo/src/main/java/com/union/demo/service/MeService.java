@@ -1,6 +1,7 @@
 package com.union.demo.service;
 
 import com.union.demo.dto.request.PortfolioPostReqDto;
+import com.union.demo.dto.request.PortfolioUpdateReqDto;
 import com.union.demo.dto.request.ProfileUpdateReqDto;
 import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.dto.response.PortfolioDetailResDto;
@@ -230,6 +231,83 @@ public class MeService {
 
 
     //5. updatePortfolio 포폴 수정
+    @Transactional
+    public PortfolioDetailResDto updatePortfolio(Long userId, Long portfolioId, PortfolioUpdateReqDto req){
+        //유저 확인
+        Users user=userRepository.findByUserId(userId)
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 유저입니다."));
+
+        //포트폴리오 확인
+        Portfolio portfolio=portfolioRepository.findPortfolioByPortfolioId(portfolioId)
+                .orElseThrow(()-> new NoSuchElementException("존재하지 않는 포트폴리오 입니다."));
+
+        //권한 확인: 로그인된 유저 == portfolio 작성자
+        if(!portfolio.getUser().getUserId().equals(user.getUserId())){
+            throw new IllegalArgumentException("본인 포트폴리오만 수정할 수 있습니다.");
+        }
+
+        //변경
+        if (req.getTitle() != null) {
+            portfolio.updateTitle(req.getTitle());
+        }
+        if (req.getSummary() != null) {
+            portfolio.updateSummary(req.getSummary());
+        }
+        if (req.getHeadcount() != null) {
+            portfolio.updateHeadcount(req.getHeadcount());
+        }
+        if (req.getExternUrl() != null) {
+            portfolio.updateExternUrl(req.getExternUrl());
+        }
+        if (req.getStext() != null) {
+            portfolio.updateStext(req.getStext());
+        }
+        if (req.getTtext() != null) {
+            portfolio.updateTtext(req.getTtext());
+        }
+        if (req.getAtext() != null) {
+            portfolio.updateAtext(req.getAtext());
+        }
+        if (req.getRtext() != null) {
+            portfolio.updateRtext(req.getRtext());
+        }
+
+        // domain 변경
+        if (req.getDomainId() != null) {
+            Domain domain = domainRepository.findByDomainId(req.getDomainId())
+                    .orElseThrow(() -> new NoSuchElementException("존재하지 않는 domainId 입니다."));
+            portfolio.updateDomain(domain);
+        }
+
+        // role 변경
+        if (req.getRoleId() != null) {
+            Role role = roleRepository.findByRoleId(req.getRoleId())
+                    .orElseThrow(() -> new NoSuchElementException("존재하지 않는 roleId 입니다."));
+            portfolio.updateRole(role);
+        }
+
+        // imageUrl 변경
+        // 코드 수정 필요
+        if (req.getImageUrl() != null) {
+            Image image = portfolio.getImage();
+
+            if (image == null) {
+                Image newImage = Image.builder()
+                        .imageUrl(req.getImageUrl())
+                        .build();
+                imageRepository.save(newImage);
+                portfolio.updateImage(newImage);
+            } else {
+                image.updateImageUrl(req.getImageUrl());
+            }
+        }
+
+        Portfolio updatedPortfolio=portfolioRepository.findPortfolioByPortfolioId(portfolioId)
+                .orElseThrow(()-> new NoSuchElementException("존재하지 않는 portfolio입니다."));
+
+        return PortfolioDetailResDto.from(updatedPortfolio);
+    }
+
 
     //6. deletePortfolio 포폴 삭제
     @Transactional

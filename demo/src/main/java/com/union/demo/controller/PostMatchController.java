@@ -20,6 +20,8 @@ public class PostMatchController {
     public PostMatchResDto getPostMatch(@PathVariable Long postId){
         return postMatchService.postMatchFastApi(postId);
     }
+
+
     //2. 공고에 핏한 팀원 필터기능 "/api/posts/123/matches?roleId=...&skillIds=1,2,3&p= "
     // @GetMapping(".api/posts/{postId}/matches?role=Id")
 
