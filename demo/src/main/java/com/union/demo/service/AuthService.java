@@ -1,6 +1,7 @@
 package com.union.demo.service;
 
 import com.union.demo.dto.request.SignupReqDto;
+import com.union.demo.dto.response.UsernameResDto;
 import com.union.demo.entity.Profile;
 import com.union.demo.entity.Role;
 import com.union.demo.entity.University;
@@ -105,7 +106,6 @@ public class AuthService {
     }
 
     //profile 정보 저장
-
     private Profile createProfileEntity(SignupReqDto signupReqDto, Users user){
 
         University university=universityRepository.findByUnivId(signupReqDto.getUniversityId())
@@ -137,5 +137,12 @@ public class AuthService {
         //refresh 쿠키 삭제
         CookieUtil.clearRefreshCookie(res);
 
+    }
+
+    //username 중복 검사
+    public UsernameResDto checkUsernameAvailability(String username) {
+        // username이 이미 존재하면 사용 불가
+        boolean exists = userRepository.existsByUsername(username); //존재하는 이름이면 true
+        return UsernameResDto.of(username, !exists);
     }
 }

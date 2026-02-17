@@ -4,6 +4,7 @@ import com.union.demo.dto.request.LoginReqDto;
 import com.union.demo.dto.request.SignupReqDto;
 import com.union.demo.dto.response.LoginResDto;
 import com.union.demo.dto.response.SignupResDto;
+import com.union.demo.dto.response.UsernameResDto;
 import com.union.demo.entity.Users;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.jwt.JWTUtil;
@@ -139,5 +140,17 @@ public class AuthController {
 
 
     //4. username 중복 검사 "api/auth/nickname?q=홍길동"
+    @GetMapping("/username")
+    public ResponseEntity<ApiResponse<UsernameResDto>> checkUsername(
+            @RequestParam("q") String username
+    ) {
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("username(q)은 필수입니다.");
+        }
+
+        UsernameResDto data = authService.checkUsernameAvailability(username.trim());
+        return ResponseEntity.ok(ApiResponse.ok(data));
+    }
+
 
 };
