@@ -24,4 +24,12 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
     Optional<Applicant> findByPost_PostIdAndUser_UserId(Long postId, Long userId);
 
     void deleteByPost_PostIdAndUser_UserId(Long postId, Long userId);
+
+    //post에 지원한 지원자들 찾기
+    @Query("""
+    select a.user.userId
+    from Applicant a
+    where a.post.postId= :postId
+    """)
+    List<Long> findApplicantUserId(@Param("postId")Long postId);
 }

@@ -21,15 +21,15 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-    //1. 전체 팀원 목록 조회 + 필터링 /api/members?roleId=...&universityId=...&skillIds=1,2,3&p=...
+    //1. 전체 팀원 목록 조회 + 필터링 /api/members?roleId=102&roleId=103&hardSkillId=129&hardSkillId=121&personality=A,D
     @GetMapping
     public ResponseEntity<ApiResponse<MemberListResDto>> getMembers(
-            @RequestParam(required = false) List<Integer> roleId,
-            @RequestParam(required = false) List<Integer> hardSkillId,
-            @RequestParam(required = false) String personality
+            @RequestParam(required = false, name="r") List<Integer> roleIds,
+            @RequestParam(required = false, name="hs") List<Integer> hardSkillIds,
+            @RequestParam(required = false, name="p") String personality
             ){
         Map<PersonalityKey, Integer> personalityFilter = PersonalityParserUtil.parse(personality);
-        MemberListResDto data=memberService.getMembers(roleId, hardSkillId, personalityFilter);
+        MemberListResDto data=memberService.getMembers(roleIds, hardSkillIds, personalityFilter);
 
         return ResponseEntity.ok(ApiResponse.ok(data));
 

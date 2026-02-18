@@ -9,6 +9,7 @@ import java.util.Map;
 public interface MemberRepositoryCustom {
     //멤버 쿼리에 따라 search
     List<Users> searchMembers(
+            List<Long> baseUserIds,
             List<Integer> roleIds, List<Integer> hardSkillIds,
             Map<PersonalityKey, Integer> personality);
 

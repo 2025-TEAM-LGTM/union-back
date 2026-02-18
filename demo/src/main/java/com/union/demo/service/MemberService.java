@@ -4,17 +4,16 @@ import com.union.demo.dto.response.MemberListResDto;
 import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.dto.response.ProfileResDto;
-import com.union.demo.entity.Portfolio;
-import com.union.demo.entity.Profile;
-import com.union.demo.entity.UserSkill;
-import com.union.demo.entity.Users;
+import com.union.demo.entity.*;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.lang.reflect.Member;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -30,17 +29,18 @@ public class MemberService{
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
     private final PortfolioRepository portfolioRepository;
+    private final ApplicantRepository applicantRepository;
+    private final PostRepository postRepository;
 
-    // getMembers 함수 + 필터링
-    public MemberListResDto getMembers(
+    //멤버 조회(공통 로직)
+    public MemberListResDto getMembersInternal(
+            List<Long> baseUserIds,
             List<Integer> roleIds,
             List<Integer> hardSkillIds,
             Map<PersonalityKey, Integer> personality
-    ) {
-        //필터링 조건에 맞는 유저들 모으기
-        List<Users> users = memberRepository.searchMembers(roleIds, hardSkillIds, personality);
-
-        if (users.isEmpty()) {
+    ){
+        List<Users> users= memberRepository.searchMembers(baseUserIds,roleIds,hardSkillIds,personality);
+        if(users.isEmpty()){
             return MemberListResDto.builder()
                     .members(Collections.emptyList())
                     .build();
@@ -72,7 +72,46 @@ public class MemberService{
         return MemberListResDto.builder()
                 .members(memberDtos)
                 .build();
+
     }
+
+    // 전체 멤버 리스트 조회 및 필터링
+    public MemberListResDto getMembers(
+            List<Integer> roleIds,
+            List<Integer> hardSkillIds,
+            Map<PersonalityKey, Integer> personality
+    ) {
+        return getMembersInternal(null, roleIds, hardSkillIds, personality);
+
+    }
+
+    //공고에 지원한 지원자들 리스트 조회 및 필터링
+    public MemberListResDto getApplicants(
+            Long userId,
+            Long postId,
+            List<Integer> roleIds,
+            List<Integer> hardSkillIds,
+            Map<PersonalityKey, Integer> personality
+    ){
+        Post post=postRepository.findByPostId(postId)
+                .orElseThrow(()-> new NoSuchElementException("해당 공고를 찾을 수 없습니다."));
+
+        //공고 주인 = 현재 로그인한 사람
+        //403 오류!
+        if(!post.getLeaderId().getUserId().equals(userId)){
+            throw new IllegalArgumentException("공고 지원자 리스트를 조회할 권한이 없습니다.");
+        }
+
+        List<Long> applicantUserIds=applicantRepository.findApplicantUserId(postId);
+
+        if(applicantUserIds.isEmpty()){
+            return MemberListResDto.builder()
+                    .members(Collections.emptyList())
+                    .build();
+        }
+        return getMembersInternal(applicantUserIds, roleIds,hardSkillIds,personality);
+    }
+
 
 
     // getMemberProfile 함수

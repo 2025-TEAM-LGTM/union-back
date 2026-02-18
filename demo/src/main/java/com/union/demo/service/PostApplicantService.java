@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.OffsetDateTime;
 import java.util.NoSuchElementException;
@@ -73,8 +74,8 @@ public class PostApplicantService {
 
     }
 
-
-
-
     //3. getApplicants  공고에 지원한 사람들 조회 + 필터링
+
+
+
 }
