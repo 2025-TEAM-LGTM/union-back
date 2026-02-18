@@ -45,7 +45,7 @@ public class PostApplicantController {
     }
 
 
-    //3. 공고에 지원한 팀원 목록 필터 기능  /api/posts/{postId}/applicant?roleId=...&skillIds=1,2,3&p=
+    //3. 공고에 지원한 팀원 목록 필터 기능  /api/posts/{postId}/applicant?r=105&hs=121&p=D
     @GetMapping("/{postId}/applicants")
     public ResponseEntity<ApiResponse<MemberListResDto>> getApplicants(
             @AuthenticationPrincipal Long userId,

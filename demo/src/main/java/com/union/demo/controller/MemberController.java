@@ -21,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
-    //1. 전체 팀원 목록 조회 + 필터링 /api/members?roleId=102&roleId=103&hardSkillId=129&hardSkillId=121&personality=A,D
+    //1. 전체 팀원 목록 조회 + 필터링 /api/members?r=105&r=103&hs=121&p=D,E
     @GetMapping
     public ResponseEntity<ApiResponse<MemberListResDto>> getMembers(
             @RequestParam(required = false, name="r") List<Integer> roleIds,
