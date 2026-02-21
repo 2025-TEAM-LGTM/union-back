@@ -12,6 +12,8 @@ import com.union.demo.repository.UserRepository;
 import com.union.demo.service.AuthService;
 import com.union.demo.service.RefreshTokenService;
 import com.union.demo.utill.CookieUtil;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,19 +30,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 import java.util.Map;
 
-@SecurityRequirement(name = "JWT")
-@RestController
-@RequestMapping("/api/auth")
-public class AuthController {
+    @RestController
+    @RequestMapping("/api/auth")
+    public class AuthController {
 
-    private final AuthService authService;
-    private final AuthenticationManager authenticationManager;
-    private final JWTUtil jWTUtil;
-    private final UserRepository userRepository;
-    private static final long ACCESS_TOKEN_EXPIRED_MS = 30 * 60 * 1000L; // 30분
-    private final RefreshTokenService refreshTokenService;
+        private final AuthService authService;
+        private final AuthenticationManager authenticationManager;
+        private final JWTUtil jWTUtil;
+        private final UserRepository userRepository;
+        private static final long ACCESS_TOKEN_EXPIRED_MS = 30 * 60 * 1000L; // 30분
+        private final RefreshTokenService refreshTokenService;
 
-    public AuthController(AuthService authService, AuthenticationManager authenticationManager, JWTUtil jWTUtil, UserRepository userRepository, RefreshTokenService refreshTokenService) {
+        public AuthController(AuthService authService, AuthenticationManager authenticationManager, JWTUtil jWTUtil, UserRepository userRepository, RefreshTokenService refreshTokenService) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
         this.jWTUtil = jWTUtil;
@@ -67,7 +68,6 @@ public class AuthController {
     }
 
     //2. 로그인 "/api/auth/login"
-
     @PostMapping(value = "/login",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity <ApiResponse<LoginResDto>> login(@RequestBody @Valid LoginReqDto loginReqDto){
         //아이디 비번 검증
@@ -142,6 +142,7 @@ public class AuthController {
     //4. username 중복 검사 "api/auth/nickname?q=홍길동"
     @GetMapping("/username")
     public ResponseEntity<ApiResponse<UsernameResDto>> checkUsername(
+            @Parameter(example = "홍길동")
             @RequestParam("q") String username
     ) {
         if (username == null || username.trim().isEmpty()) {

@@ -1,5 +1,6 @@
 package com.union.demo.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -21,9 +22,14 @@ public class PostCreateReqDto {
     @Size(max=200)
     String title;
 
+    @Schema(example = "[101, 103]")
     @NotEmpty
     List<@NotNull Integer> domainIds;
 
+    @Schema(example = """
+            {"startDate": "2026-01-15", 
+            "endDate": "2026-02-10" }
+            """)
     @NotNull
     private RecruitPeriodDto recruitPeriod;
 
@@ -33,9 +39,21 @@ public class PostCreateReqDto {
     @Size(max=255)
     private String contact;
 
+    @Schema(example = """
+            [
+                { "roleId": 301, "count": 1 },
+                { "roleId": 404, "count": 1 }
+             ]
+            """)
     @NotNull
     private List<@Valid RoleCountDto> currentRoles;
 
+    @Schema(example = """
+            [
+                { "roleId": 301, "count": 1 },
+                { "roleId": 404, "count": 1 }
+             ]
+            """)
     @NotNull
     private List<@Valid RoleCountDto> recruitRoles;
 
@@ -45,6 +63,14 @@ public class PostCreateReqDto {
     @NotNull
     private String aboutUs;
 
+    @Schema(example = """
+            {
+            "A": 1,
+            "B": 1,
+            "F": 0,
+            "I": 0,
+            "L": 0}
+            """)
     @NotNull
     private Map<String, Integer> teamCulture;
 

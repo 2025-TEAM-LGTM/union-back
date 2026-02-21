@@ -3,6 +3,7 @@ package com.union.demo.config;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,10 @@ import org.springframework.context.annotation.Configuration;
 //swagger 설정 class
 @Configuration
 public class SwaggerConfig {
+
+    //swagger에 jwt 설정
+    private static final String SECURITY_SCHEME_NAME="bearerAuth";
+
     @Bean
     public OpenAPI openAPI(){
         String jwtSchemeName = "JWT";
@@ -20,15 +25,15 @@ public class SwaggerConfig {
                         .version("v1.0.0")
 
                 )
-                //JWT 보안 스키마 등록
+                //JWT 설정 추가
+                .addSecurityItem(new SecurityRequirement().addList(SECURITY_SCHEME_NAME))
                 .components(new Components()
-                        .addSecuritySchemes(jwtSchemeName,
-                        new SecurityScheme()
-                                .name(jwtSchemeName)
-                                .type(SecurityScheme.Type.HTTP)
-                                .scheme("bearer")
-                                .bearerFormat("JWT"))
-                );
-
+                        .addSecuritySchemes(SECURITY_SCHEME_NAME,
+                                new SecurityScheme()
+                                        .name(SECURITY_SCHEME_NAME)
+                                        .type(SecurityScheme.Type.HTTP)
+                                        .scheme("bearer")
+                                        .bearerFormat("JWT")
+                        ));
     }
 }

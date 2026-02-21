@@ -7,6 +7,7 @@ import com.union.demo.enums.PersonalityKey;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.PostMatchService;
 import com.union.demo.utill.PersonalityParserUtil;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +26,13 @@ public class PostMatchController {
     @GetMapping("/api/posts/{postId}/matches")
     public ResponseEntity<ApiResponse<MemberMatchResDto>> getPostMatch(
             @PathVariable Long postId,
+            @Parameter(example = "[101,102]")
             @RequestParam(required = false, name="r") List<Integer> roleIds,
+            @Parameter(example = "[121,122]")
             @RequestParam(required = false, name="hs") List<Integer> hardSkillIds,
+            @Parameter(example = """
+                    {"A": 1, "B": 1}
+                    """)
             @RequestParam(required = false, name="p") String personality
 
     ){

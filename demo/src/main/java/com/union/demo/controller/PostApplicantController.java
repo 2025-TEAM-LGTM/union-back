@@ -7,6 +7,7 @@ import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.MemberService;
 import com.union.demo.service.PostApplicantService;
 import com.union.demo.utill.PersonalityParserUtil;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -50,8 +51,13 @@ public class PostApplicantController {
     public ResponseEntity<ApiResponse<MemberListResDto>> getApplicants(
             @AuthenticationPrincipal Long userId,
             @PathVariable Long postId,
+            @Parameter(example = "[101,102]")
             @RequestParam(required = false, name="r") List<Integer> roleIds,
+            @Parameter(example = "[121,122]")
             @RequestParam(required = false, name="hs") List<Integer> hardSkillIds,
+            @Parameter(example = """
+                    {"A": 1, "B": 1}
+                    """)
             @RequestParam(required = false, name="p") String personality
     ){
         //personality 파싱(String -> key)

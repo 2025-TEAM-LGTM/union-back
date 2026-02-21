@@ -43,7 +43,7 @@ public class MemberListResDto {
         return MemberDto.builder()
                 .userId(user.getUserId())
                 .username(user.getUsername())
-                .profileImageUrl(user.getImage().getImageUrl())
+                .profileImageUrl(user.getImage()!=null?user.getImage().getImageUrl():null)
                 .role(ItemDto.builder()
                         .id(r.getRoleId())
                         .name(r.getRoleName())
