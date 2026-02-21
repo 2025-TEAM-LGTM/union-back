@@ -1,5 +1,6 @@
 package com.union.demo.dto.request;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -13,8 +14,10 @@ public class PortfolioUpdateReqDto {
     @Size(max=255)
     private String summary;
 
+    @Schema(example = "101")
     private Integer domainId;
 
+    @Schema(example = "401")
     private Integer roleId;
 
     private Integer headcount;

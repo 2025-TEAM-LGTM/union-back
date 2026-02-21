@@ -8,6 +8,7 @@ import com.union.demo.enums.PersonalityKey;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.MemberService;
 import com.union.demo.utill.PersonalityParserUtil;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +25,13 @@ public class MemberController {
     //1. 전체 팀원 목록 조회 + 필터링 /api/members?r=105&r=103&hs=121&p=D,E
     @GetMapping
     public ResponseEntity<ApiResponse<MemberListResDto>> getMembers(
+            @Parameter(example = "[101,102]")
             @RequestParam(required = false, name = "r") List<Integer> roleIds,
+            @Parameter(example = "[121,122]")
             @RequestParam(required = false, name = "hs") List<Integer> hardSkillIds,
+            @Parameter(example = """
+                    {"A": 1, "B": 1}
+                    """)
             @RequestParam(required = false, name = "p") String personality
             ){
         Map<PersonalityKey, Integer> personalityFilter = PersonalityParserUtil.parse(personality);

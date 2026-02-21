@@ -1,4 +1,5 @@
 package com.union.demo.dto.request;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -9,18 +10,47 @@ import java.util.Map;
 @NoArgsConstructor
 public class PostUpdateReqDto {
     String title;
+
+    @Schema(example = "[101, 103]")
     List<Integer> domainIds;
+
+    @Schema(example = """
+            {"startDate": "2026-01-15", 
+            "endDate": "2026-02-10" }
+            """)
     private RecruitPeriodDto recruitPeriod;
+
     private String homepageUrl;
+
     private String contact;
 
+    @Schema(example = """
+            [
+                { "roleId": 301, "count": 1 },
+                { "roleId": 404, "count": 1 }
+             ]
+            """)
     private List<RoleCountDto> currentRoles;
 
+    @Schema(example = """
+            [
+                { "roleId": 301, "count": 1 },
+                { "roleId": 404, "count": 1 }
+             ]
+            """)
     private List<RoleCountDto> recruitRoles;
 
     private String seeking;
     private String aboutUs;
+
+    @Schema(example = """
+            [
+                { "roleId": 301, "count": 1 },
+                { "roleId": 404, "count": 1 }
+             ]
+            """)
     private Map<String, Integer> teamCulture;
+
     private String imageUrl;
 
     @Getter

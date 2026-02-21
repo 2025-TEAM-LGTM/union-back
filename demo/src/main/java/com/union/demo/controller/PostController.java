@@ -10,6 +10,7 @@ import com.union.demo.global.common.ApiResponse;
 import com.union.demo.repository.UserRepository;
 import com.union.demo.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,13 +27,15 @@ public class PostController {
     private final PostService postService;
     private final UserRepository userRepository;
 
-    @Operation(summary = "전체 공고 목록 조회", description = "전체 목록 조회 + 쿼리를 통해 검색도 가능, 자세한 쿼리내용은 노션 api 문서 확인하기")
     @GetMapping
     public ResponseEntity<ApiResponse<PostListResDto>> getPosts(
             @AuthenticationPrincipal Long userId,
-            @RequestParam(required = false) List<Integer> domainIds,
-            @RequestParam(required = false) List<Integer> fieldIds,
-            @RequestParam(required = false) List<Integer> roleIds
+            @Parameter(example = "[101,102]")
+            @RequestParam(required = false, name="d") List<Integer> domainIds,
+            @Parameter(example = "[100]")
+            @RequestParam(required = false, name="f") List<Integer> fieldIds,
+            @Parameter(example = "[101,102]")
+            @RequestParam(required = false, name="r") List<Integer> roleIds
 
     ){
         PostListResDto data= postService.getAllPosts(userId,domainIds, fieldIds, roleIds);
