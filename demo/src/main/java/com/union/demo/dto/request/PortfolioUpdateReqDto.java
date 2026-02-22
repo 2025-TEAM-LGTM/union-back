@@ -32,5 +32,6 @@ public class PortfolioUpdateReqDto {
 
     private String Rtext;
 
-    private String imageUrl;
+    private String imageKey;
+    private Long imageSize;
 }

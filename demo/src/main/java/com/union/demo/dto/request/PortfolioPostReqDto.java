@@ -40,5 +40,6 @@ public class PortfolioPostReqDto {
     @NotBlank
     private String Rtext;
 
-    private String imageUrl;
+    private String imageKey;
+    private Long imageSize;
 }

@@ -13,7 +13,9 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 public class ProfileUpdateReqDto {
-    private String profileImageUrl;
+    private String imageKey;
+    private Long imageSize;
+
     private String email;
 
     @Schema(example = "101")

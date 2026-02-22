@@ -3,6 +3,7 @@ package com.union.demo.dto.response;
 import com.union.demo.entity.Profile;
 import com.union.demo.entity.Users;
 import com.union.demo.enums.PersonalityKey;
+import com.union.demo.utill.S3UrlResolver;
 import lombok.*;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Map;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ProfileResDto {
     private String username;
-    private String profileImageUrl;
+    private String imageUrl;
     private Integer birthYear;
     private ItemDto mainRole;
     private String email;
@@ -45,11 +46,14 @@ public class ProfileResDto {
     //dto 만들기
     public static ProfileResDto from(
             Users user,
-            Profile profile
+            Profile profile,
+            S3UrlResolver s3UrlResolver
     ){
         return ProfileResDto.builder()
                 .username(user.getUsername())
-                .profileImageUrl(user.getImage()!=null? user.getImage().getImageUrl():null)
+                .imageUrl(user.getImage()!=null?
+                        s3UrlResolver.toUrl(user.getImage().getS3Key())
+                        : null)
                 .birthYear(profile.getBirthYear())
                 .mainRole(ItemDto.builder()
                         .id(user.getMainRoleId().getRoleId())

@@ -8,8 +8,10 @@ import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
 import com.union.demo.entity.*;
 import com.union.demo.enums.PersonalityKey;
+import com.union.demo.enums.Purpose;
 import com.union.demo.enums.Status;
 import com.union.demo.repository.*;
+import com.union.demo.utill.S3UrlResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,7 @@ public class MeService {
     private final PortfolioRepository portfolioRepository;
     private final DomainRepository domainRepository;
     private final RoleRepository roleRepository;
+    private final S3UrlResolver s3UrlResolver;
 
 
     //1. getProfile 프로필 조회
@@ -45,7 +48,7 @@ public class MeService {
 
         //return
         return ProfileResDto.from(
-                user, profile
+                user, profile, s3UrlResolver
         );
 
     }
@@ -110,21 +113,33 @@ public class MeService {
         }
 
 
-        //image
-        //image 부분은 s3 연결한 이후 수정할 부분 있으면 수정해야함!
-        if(req.getProfileImageUrl()!=null){
-            //새로운 이미지를 image 테이블에 추가
-            Image newImage=imageRepository.save(Image.builder()
-                            .imageUrl(req.getProfileImageUrl())
-                    .build());
+        //image update
+        if(req.getImageKey()!=null){
+            Image oldImage=profile.getUser().getImage();
+            String newKey=req.getImageKey().isBlank()?null:req.getImageKey();
 
-            Image oldImage=user.getImage();
-            user.updateImage(newImage);
+            // new image
+            if (newKey == null) {
+                user.updateImage(null);
+            }
+            else {
+                if(oldImage==null){
+                    Image newImage = imageRepository.save(
+                            Image.builder()
+                                    .s3Key(req.getImageKey())
+                                    .fileSize(req.getImageSize())
+                                    .purpose(Purpose.PROFILE)
+                                    .build()
+                    );
+                    user.updateImage(newImage);
+                }
+                else{
+                    oldImage.updateS3Key(req.getImageKey());
+                    oldImage.updateFileSize(req.getImageSize());
+                }
 
-            //기존 이미지 행을 지워야 되는거면
-            //기존 이미지를 지우는 코드 추가하기
-            //Image oldImage=user.getImage();
-            //imageRepository.delete(oldImage);
+            }
+
         }
 
         //hardSkill
@@ -163,9 +178,11 @@ public class MeService {
 
         Profile updatedProfile=profileRepository.findByUserId(userId)
                 .orElseThrow(()->new IllegalArgumentException("존재하지 않는 profile입니다."));
+
         Users updatedUser=userRepository.findByUserId(userId)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 user입니다."));
-        return ProfileResDto.from(updatedUser,updatedProfile);
+
+        return ProfileResDto.from(updatedUser,updatedProfile,s3UrlResolver);
     }
 
     //3. getPortfolios 포폴 목록 조회
@@ -175,7 +192,7 @@ public class MeService {
 
         List<Portfolio> portfolios= portfolioRepository.findPortfolioByUserId(userId);
 
-        return PortfolioListResDto.from(portfolios);
+        return PortfolioListResDto.from(portfolios,s3UrlResolver);
 
     }
 
@@ -200,10 +217,12 @@ public class MeService {
         //image 저장
         //image api 처리 이후 수정 필요
         Image image=null;
-        if(req.getImageUrl()!=null && !req.getImageUrl().isBlank()){
+        if(req.getImageKey()!=null && !req.getImageKey().isBlank()){
             image=imageRepository.save(
                     Image.builder()
-                            .imageUrl(req.getImageUrl())
+                            .s3Key(req.getImageKey())
+                            .purpose(Purpose.PORTFOLIO)
+                            .fileSize(req.getImageSize())
                             .build()
             );
         }
@@ -221,11 +240,12 @@ public class MeService {
                 .Ttext(req.getTtext())
                 .Atext(req.getAtext())
                 .Rtext(req.getRtext())
+                .image(image)
                 .build();
 
         Portfolio saved=portfolioRepository.save(newPortfolio);
 
-        return PortfolioDetailResDto.from(saved);
+        return PortfolioDetailResDto.from(saved,s3UrlResolver);
 
     }
 
@@ -286,26 +306,37 @@ public class MeService {
             portfolio.updateRole(role);
         }
 
-        // imageUrl 변경
-        // 코드 수정 필요
-        if (req.getImageUrl() != null) {
-            Image image = portfolio.getImage();
+        // image
+        if (req.getImageKey() != null) {
+            String newKey=req.getImageKey().isBlank()?null:req.getImageKey();
 
-            if (image == null) {
-                Image newImage = Image.builder()
-                        .imageUrl(req.getImageUrl())
-                        .build();
-                imageRepository.save(newImage);
-                portfolio.updateImage(newImage);
-            } else {
-                image.updateImageUrl(req.getImageUrl());
+            Image oldImage=portfolio.getImage();
+
+            if(newKey==null){
+                portfolio.updateImage(null);
             }
+            else{
+                if(oldImage==null){
+                    Image newImage=imageRepository.save(
+                            Image.builder()
+                                    .s3Key(newKey)
+                                    .fileSize(req.getImageSize())
+                                    .purpose(Purpose.PORTFOLIO)
+                                    .build()
+                    );
+                    portfolio.updateImage(newImage);
+                }else{
+                    oldImage.updateS3Key(newKey);
+                    oldImage.updateFileSize(req.getImageSize());
+                }
+            }
+
         }
 
         Portfolio updatedPortfolio=portfolioRepository.findPortfolioByPortfolioId(portfolioId)
                 .orElseThrow(()-> new NoSuchElementException("존재하지 않는 portfolio입니다."));
 
-        return PortfolioDetailResDto.from(updatedPortfolio);
+        return PortfolioDetailResDto.from(updatedPortfolio,s3UrlResolver);
     }
 
 
@@ -338,6 +369,6 @@ public class MeService {
         Portfolio portfolio=portfolioRepository.findDetailByPortfolioId(portfolioId)
                 .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 portfolioId입니다."));
 
-        return PortfolioDetailResDto.from(portfolio);
+        return PortfolioDetailResDto.from(portfolio,s3UrlResolver);
     }
 }

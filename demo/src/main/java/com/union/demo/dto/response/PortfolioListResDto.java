@@ -4,6 +4,7 @@ import com.union.demo.entity.Domain;
 import com.union.demo.entity.Image;
 import com.union.demo.entity.Portfolio;
 import com.union.demo.entity.Role;
+import com.union.demo.utill.S3UrlResolver;
 import lombok.*;
 
 import java.util.List;
@@ -36,16 +37,16 @@ public class PortfolioListResDto {
     }
 
     //목록 전체 매핑
-    public static PortfolioListResDto from(List<Portfolio> portfolios){
+    public static PortfolioListResDto from(List<Portfolio> portfolios, S3UrlResolver s3UrlResolver){
         return PortfolioListResDto.builder()
                 .portfolios(portfolios.stream()
-                        .map(PortfolioListResDto::fromPortfolio)
+                        .map(p-> fromPortfolio(p,s3UrlResolver))
                         .toList())
                 .build();
     }
 
     //포폴 매핑
-    private static PortfoliosDto fromPortfolio(Portfolio p){
+    private static PortfoliosDto fromPortfolio(Portfolio p,S3UrlResolver s3UrlResolver){
 
         Domain d=p.getDomain();
         Role r= p.getRole();
@@ -64,9 +65,8 @@ public class PortfolioListResDto {
                         .name(r.getRoleName())
                         .build():null)
                 .headcount(p.getHeadcount())
-                .imageUrl(i!=null ? i.getImageUrl():null)
+                .imageUrl(i!=null ? s3UrlResolver.toUrl(i.getS3Key()):null)
                 .build();
     }
-
 
 }
