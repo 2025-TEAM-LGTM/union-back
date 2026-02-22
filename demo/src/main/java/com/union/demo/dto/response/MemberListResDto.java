@@ -3,6 +3,7 @@ package com.union.demo.dto.response;
 import com.union.demo.entity.Role;
 import com.union.demo.entity.Users;
 import com.union.demo.enums.PersonalityKey;
+import com.union.demo.utill.S3UrlResolver;
 import lombok.*;
 
 import java.util.List;
@@ -16,7 +17,6 @@ public class MemberListResDto {
     @Getter@Builder
     @AllArgsConstructor @NoArgsConstructor(access= AccessLevel.PROTECTED)
     public static class MemberDto{
-
         private Long userId;
         private String username;
         private String profileImageUrl;
@@ -36,29 +36,24 @@ public class MemberListResDto {
     //mapping
     public static MemberDto from(
             Users user,
-            List<ItemDto> skills
+            List<ItemDto> skills,
+            S3UrlResolver s3UrlResolver
     ){
         Role r=user.getMainRoleId();
 
         return MemberDto.builder()
                 .userId(user.getUserId())
                 .username(user.getUsername())
-                .profileImageUrl(user.getImage()!=null?user.getImage().getImageUrl():null)
+                .profileImageUrl(user.getImage()!=null?
+                        s3UrlResolver.toUrl(user.getImage().getS3Key()):null)
                 .role(ItemDto.builder()
                         .id(r.getRoleId())
                         .name(r.getRoleName())
                         .build())
-                .hardSkill(user.getUserSkills().stream()
-                        .map(skill -> ItemDto.builder()
-                                .id(skill.getSkill().getSkillId())
-                                .name(skill.getSkill().getSkillName())
-                                .build()
-                        ).toList())
+                .hardSkill(skills!=null ? skills:List.of())
                 .personality(user.getPersonality())
                 .build();
 
     }
-
-
 
 }

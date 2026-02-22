@@ -3,6 +3,7 @@ package com.union.demo.dto.response;
 import com.union.demo.entity.Role;
 import com.union.demo.entity.Users;
 import com.union.demo.enums.PersonalityKey;
+import com.union.demo.utill.S3UrlResolver;
 import lombok.*;
 
 import java.util.List;
@@ -41,13 +42,15 @@ public class MemberMatchResDto {
         private String name;
     }
 
-    public static MemberMatchDto from(Users user, List<ItemDto> skills, String mainStrength){
+    public static MemberMatchDto from(Users user, List<ItemDto> skills, String mainStrength
+    , S3UrlResolver s3UrlResolver){
         Role r=user.getMainRoleId();
 
         return MemberMatchDto.builder()
                 .userId(user.getUserId())
                 .username(user.getUsername())
-                .profileImageUrl(user.getImage()!=null?user.getImage().getImageUrl():null)
+                .profileImageUrl(user.getImage()!=null?
+                        s3UrlResolver.toUrl(user.getImage().getS3Key()):null)
                 .role(ItemDto.builder()
                         .id(r.getRoleId())
                         .name(r.getRoleName())

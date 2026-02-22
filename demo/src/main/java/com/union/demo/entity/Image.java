@@ -26,16 +26,16 @@ public class Image {
     @Column(name="file_size")
     private Long fileSize;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name="size_type", length = 255)
-    private SizeType sizeType;
+    public void updateS3Key(String s3Key){
+        this.s3Key=s3Key;
+    }
+    public void updateFileSize(Long imageSize){this.fileSize=imageSize;}
 
-    public static Image of(String s3Key, Purpose purpose, Long fileSize, SizeType sizeType){
+    public static Image of(String s3Key, Purpose purpose, Long fileSize){
         Image image=new Image();
         image.s3Key=s3Key;
         image.purpose=purpose;
         image.fileSize=fileSize;
-        image.sizeType=sizeType;
         return image;
     }
 

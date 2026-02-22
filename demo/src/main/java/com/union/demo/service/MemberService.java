@@ -4,13 +4,12 @@ import com.union.demo.dto.response.*;
 import com.union.demo.entity.*;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.repository.*;
+import com.union.demo.utill.S3UrlResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.lang.reflect.Member;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,6 +24,7 @@ public class MemberService{
     private final PortfolioRepository portfolioRepository;
     private final ApplicantRepository applicantRepository;
     private final PostRepository postRepository;
+    private final S3UrlResolver s3UrlResolver;
 
     //멤버 조회(공통 로직)
     public MemberListResDto getMembersInternal(
@@ -60,7 +60,10 @@ public class MemberService{
         //dto 최종 매핑
         //userId로 skill를 찾아보고 skill이 만약 없다면 빈 리스트로 저장
         List<MemberListResDto.MemberDto> memberDtos=users.stream()
-                .map(user-> MemberListResDto.from(user, skillsByUserId.getOrDefault(user.getUserId(),List.of())))
+                .map(user-> MemberListResDto.from(user,
+                        skillsByUserId.getOrDefault(user.getUserId(),List.of()),
+                        s3UrlResolver
+                ))
                 .toList();
 
         return MemberListResDto.builder()
@@ -154,7 +157,8 @@ public class MemberService{
                 .map(user -> MemberMatchResDto.from(
                         user,
                         skillsByUserId.getOrDefault(user.getUserId(),List.of()),
-                        strengthMap!=null ? strengthMap.get(user.getUserId()): null
+                        strengthMap!=null ? strengthMap.get(user.getUserId()): null,
+                        s3UrlResolver
                 ))
                 .toList();
 
@@ -171,7 +175,7 @@ public class MemberService{
         Profile profile=profileRepository.findByUserId(memberId)
                 .orElseThrow(()-> new NoSuchElementException("프로필을 찾을 수 없습니다."));
 
-        return ProfileResDto.from(user, profile);
+        return ProfileResDto.from(user, profile,s3UrlResolver);
 
     }
 
@@ -182,7 +186,7 @@ public class MemberService{
 
         List<Portfolio> portfolio=portfolioRepository.findPortfolioByUserId(memberId);
 
-        return PortfolioListResDto.from(portfolio);
+        return PortfolioListResDto.from(portfolio,s3UrlResolver);
     }
 
     //getMemberPortfolioDetail: 팀원의 상세 포트폴리오 조회
@@ -196,6 +200,6 @@ public class MemberService{
         if(!portfolio.getUser().getUserId().equals(memberId)){
             throw new AccessDeniedException("포트폴리오 작성자의 id와 memberId가 서로 다릅니다.");
         }
-        return PortfolioDetailResDto.from(portfolio);
+        return PortfolioDetailResDto.from(portfolio,s3UrlResolver);
     }
 }

@@ -25,7 +25,6 @@ import java.util.stream.Collectors;
 public class PostMatchService {
 
     private final RestTemplate restTemplate;
-    private final UserRepository userRepository;
     private final MemberService memberService;
 
     public MemberMatchResDto postMatchFastApi(
