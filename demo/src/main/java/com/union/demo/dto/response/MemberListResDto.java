@@ -19,7 +19,7 @@ public class MemberListResDto {
     public static class MemberDto{
         private Long userId;
         private String username;
-        private String profileImageUrl;
+        private String imageUrl;
         private ItemDto role;
         private List<ItemDto> hardSkill;
         private Map<PersonalityKey, Integer> personality;
@@ -44,7 +44,7 @@ public class MemberListResDto {
         return MemberDto.builder()
                 .userId(user.getUserId())
                 .username(user.getUsername())
-                .profileImageUrl(user.getImage()!=null?
+                .imageUrl(user.getImage()!=null?
                         s3UrlResolver.toUrl(user.getImage().getS3Key()):null)
                 .role(ItemDto.builder()
                         .id(r.getRoleId())
