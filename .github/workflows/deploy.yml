@@ -1,0 +1,42 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions: 
+  contents: read
+  packages: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/set-buildx-action@v3
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+
+      - uses: docker/build-push-action@v6
+        with:
+           context: .
+           push: true
+           tags: ghcr.io/2025-team-lgtm/union-back:latest
+
+      - uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.EC2_HOST}}
+          username: ubuntu
+          key: ${{secrets.EC2_SSH_KEY}}
+          script: |
+            cd ~/app
+            docker login ghcr.io -u ${{github.actor}} -p ${{secrets.GITHUB_TOKEN}}
+            docker compose pull
+            docker compose up -d
+            
+
+          
