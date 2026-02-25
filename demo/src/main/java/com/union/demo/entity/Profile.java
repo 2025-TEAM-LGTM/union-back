@@ -20,6 +20,7 @@ public class Profile {
     @JoinColumn(name="user_id")
     private Users user;
 
+    @Column(nullable = false)
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
