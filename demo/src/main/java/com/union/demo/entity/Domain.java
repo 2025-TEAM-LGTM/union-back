@@ -17,6 +17,6 @@ public class Domain {
     @Column(name="domain_id")
     private Integer domainId;
 
-    @Column(name="domain_name")
+    @Column(name="domain_name",nullable = false)
     private String domainName;
 }
