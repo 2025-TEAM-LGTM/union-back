@@ -14,6 +14,6 @@ public class Field {
     @Column(name="field_id")
     private Integer fieldId;
 
-    @Column(name="field_name")
+    @Column(name="field_name", nullable = false)
     private String fieldName;
 }

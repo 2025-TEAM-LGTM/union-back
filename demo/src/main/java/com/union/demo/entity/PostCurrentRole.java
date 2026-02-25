@@ -2,6 +2,7 @@ package com.union.demo.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name="post_current_role")
@@ -25,7 +26,6 @@ public class PostCurrentRole {
     private Role role;
 
     @Column(name="count")
-    private Integer count;
-
+    private Integer count=1;
 
 }
