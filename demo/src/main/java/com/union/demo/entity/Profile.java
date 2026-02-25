@@ -4,6 +4,8 @@ import com.union.demo.enums.Gender;
 import com.union.demo.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Builder
@@ -30,9 +32,13 @@ public class Profile {
     private String major;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name="status",columnDefinition = "status_enum")
     private Status status;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name="gender",columnDefinition = "gender_enum")
     private Gender gender;
 
     @Column(name="entrance_year")
