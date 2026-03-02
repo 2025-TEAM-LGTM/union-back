@@ -184,7 +184,6 @@ public class PostService {
         OffsetDateTime recruitSdate = start.atStartOfDay().atOffset(KST);
         OffsetDateTime recruitEdate = end.atTime(23, 59, 59).atOffset(KST);
 
-        //일단 image는 아직 개발이 안되서 null 처리 할게요
         Image image=null;
         if(req.getImageKey()!=null && !req.getImageKey().isBlank()){
             image=imageRepository.save(

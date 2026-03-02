@@ -14,18 +14,16 @@ import com.union.demo.service.RefreshTokenService;
 import com.union.demo.utill.CookieUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.authentication.AuthenticationManager;import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -35,17 +33,10 @@ import java.util.Map;
     public class AuthController {
 
         private final AuthService authService;
-        private final AuthenticationManager authenticationManager;
-        private final JWTUtil jWTUtil;
-        private final UserRepository userRepository;
-        private static final long ACCESS_TOKEN_EXPIRED_MS = 30 * 60 * 1000L; // 30분
         private final RefreshTokenService refreshTokenService;
 
         public AuthController(AuthService authService, AuthenticationManager authenticationManager, JWTUtil jWTUtil, UserRepository userRepository, RefreshTokenService refreshTokenService) {
         this.authService = authService;
-        this.authenticationManager = authenticationManager;
-        this.jWTUtil = jWTUtil;
-        this.userRepository = userRepository;
         this.refreshTokenService = refreshTokenService;
     }
 
@@ -66,45 +57,51 @@ import java.util.Map;
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.created(data));
     }
+        @Operation(
+                summary = "로그인 (Swagger 문서용)",
+                description = """
+                    실제 로그인 처리는 LoginFilter에서 수행됩니다.
+                    
+                    - 요청: application/x-www-form-urlencoded (loginId, password)
+                    - 응답:
+                      1) Authorization 헤더에 'Bearer {accessToken}' 포함
+                      2) body에 accessToken 포함
+                      3) refreshToken은 HttpOnly 쿠키(Set-Cookie)로 내려갑니다.
+                    
+                    - (주의) refreshToken은 HttpOnly 쿠키이므로 JS에서 직접 읽을 수 없습니다.
+                    """
+        )
+        @io.swagger.v3.oas.annotations.responses.ApiResponse(
+                responseCode = "200",
+                description = "로그인 성공",
+                headers = {
+                        @Header(
+                                name = "Authorization",
+                                description = "Bearer {accessToken}",
+                                schema = @Schema(type = "string")
+                        ),
+                        @Header(
+                                name = "Set-Cookie",
+                                description = "refreshToken=...; HttpOnly=true; Secure: 로컬 개발 중에는 false, https로 배포하면 true; SameSite=None",
+                                schema = @Schema(type = "string")
+                        )
+                }
+        )
+        @PostMapping(
+                value = "/login",
+                consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+                produces = MediaType.APPLICATION_JSON_VALUE
+        )
+        public ResponseEntity<ApiResponse<LoginResDto>> loginSwagger(
+                @Valid @ModelAttribute LoginReqDto loginReqDto
+        ) {
+            // 실제 처리는 LoginFilter가 수행하므로, 이 메서드는 보통 실행되지 않습니다.
+            // (혹시라도 필터가 비활성화된 환경에서 호출되면) 문서용 더미 응답을 반환합니다.
+            LoginResDto dummy = new LoginResDto(null, loginReqDto.getLoginId(), "DUMMY_ACCESS_TOKEN");
+            return ResponseEntity.ok(ApiResponse.ok(dummy));
+        }
 
-    //2. 로그인 "/api/auth/login"
-    @PostMapping(value = "/login",consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity <ApiResponse<LoginResDto>> login(@RequestBody @Valid LoginReqDto loginReqDto){
-        //아이디 비번 검증
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginReqDto.getLoginId(),
-                        loginReqDto.getPassword()
-                )
-        );
-
-        Users user=userRepository.findByLoginId(loginReqDto.getLoginId())
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 loginId입니다."));
-
-        Long userId= user.getUserId();
-        String loginId=user.getLoginId();
-
-        String hasRole="ROLE_USER";
-
-        //JWT 생성
-        String accessToken= jWTUtil.createJWT(
-                "access",userId, user.getLoginId(),hasRole,
-                ACCESS_TOKEN_EXPIRED_MS
-        );
-        // 헤더에도 넣어주기
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken);
-
-        // 바디 응답
-        LoginResDto data=new LoginResDto(
-                userId, loginId, accessToken
-        );
-
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(ApiResponse.ok(data));
-    }
-
-    //refresh
+    //2. refresh "/api/auth/refresh"
     @PostMapping("/refresh")
     public Map<String, String> refresh(HttpServletRequest req, HttpServletResponse res){
         String refreshToken=extractRefreshFromCookie(req);
@@ -138,7 +135,6 @@ import java.util.Map;
 
     }
 
-
     //4. username 중복 검사 "api/auth/nickname?q=홍길동"
     @GetMapping("/username")
     public ResponseEntity<ApiResponse<UsernameResDto>> checkUsername(
@@ -152,6 +148,5 @@ import java.util.Map;
         UsernameResDto data = authService.checkUsernameAvailability(username.trim());
         return ResponseEntity.ok(ApiResponse.ok(data));
     }
-
 
 };
