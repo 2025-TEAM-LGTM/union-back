@@ -64,11 +64,12 @@ import java.util.Map;
                     
                     - 요청: application/x-www-form-urlencoded (loginId, password)
                     - 응답:
-                      1) Authorization 헤더에 'Bearer {accessToken}' 포함
-                      2) body에 accessToken 포함
-                      3) refreshToken은 HttpOnly 쿠키(Set-Cookie)로 내려갑니다.
+                      1) Authorization 헤더에 'Bearer {accessToken}' 응답
+                      2) refreshToken은 HttpOnly 쿠키(Set-Cookie)로 내려갑니다.
                     
                     - (주의) refreshToken은 HttpOnly 쿠키이므로 JS에서 직접 읽을 수 없습니다.
+                    - (주의) 위의 이유로 swagger에서는 헤더에 access token만 보이고 refresh는 보이지 않습니다. 그러나 실제로는 헤더 Set-Cookie로 응답됩니다.
+                    - (주의) refresh token을 확인하고 싶으시다면 <개발자도구-network 탭-"Cookies">를 확인하시길 바랍니다.
                     """
         )
         @io.swagger.v3.oas.annotations.responses.ApiResponse(
@@ -107,11 +108,11 @@ import java.util.Map;
         String refreshToken=extractRefreshFromCookie(req);
         RefreshTokenService.TokenPair pair= refreshTokenService.refreshAndRotate(refreshToken);
 
-        //refresh 쿠키 갱신
+        //new refresh token을 cookie로 내려줌
         int refreshMaxAgeSeconds=60*60*24*14;
         CookieUtil.addRefreshCookie(res, pair.refreshToken(), refreshMaxAgeSeconds);
 
-        //access 내려주기
+        //access token 내려주기
         return Map.of("accessToken", pair.accessToken());
     }
 

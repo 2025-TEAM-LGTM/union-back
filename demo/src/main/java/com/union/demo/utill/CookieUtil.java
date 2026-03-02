@@ -30,7 +30,7 @@ public class CookieUtil {
         Cookie cookie=new Cookie(REFRESH_COOKIE_NAME, null);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setMaxAge(0);
+        cookie.setMaxAge(0); //유효기간을 0으로 만들어서 브라우저가 즉시 삭제
         cookie.setSecure(false);
         res.addCookie(cookie);
     }
