@@ -71,14 +71,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         int refreshMaxAgeSeconds=60*60*24*14;
         CookieUtil.addRefreshCookie(res, saved.getToken(), refreshMaxAgeSeconds);
 
-        // header, body 둘다 access token 넣어줌
-        // header
+        // header의 Authorization에 access token 응답
         res.setHeader("Authorization", "Bearer " + accessToken);
-        // body
-        res.setContentType("application/json");
-        res.setCharacterEncoding("UTF-8");
-        res.getWriter().write("{\"accessToken\":\"" + accessToken + "\"}");
-    }
+  }
 
     // 로그인 실패 시 401 응답 반환
     @Override
