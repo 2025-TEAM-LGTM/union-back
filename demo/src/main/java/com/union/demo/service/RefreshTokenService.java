@@ -44,10 +44,10 @@ public class RefreshTokenService {
     //refresh 검증 + access 재발급 + refresh 로테이션
     @Transactional
     public TokenPair refreshAndRotate(String refreshToken){
-        //jwt 자체 검증
+        //refresh token 검증1: jwt 자체 검증
         validateRefreshJwt(refreshToken);
 
-        //db에서 살아있는 refresh인지를 검증
+        //refresh token 검증2: db에서 살아있는 refresh인지를 검증
         RefreshToken stored=refreshTokenRepository.findByTokenAndRevokedFalse(refreshToken)
                 .orElseThrow(()-> new IllegalArgumentException("유효하지 않은 refresh token입니다."));
 
@@ -56,6 +56,7 @@ public class RefreshTokenService {
             throw new IllegalArgumentException("만료된 refresh token입니다.");
         }
 
+        //refresh token의 주인 꺼내기
         Users user=stored.getUser();
 
         //로테이션: 기존 refresh 폐기
@@ -76,9 +77,12 @@ public class RefreshTokenService {
     }
 
     public void validateRefreshJwt(String refreshToken){
+        //만료 검사
         if(jwtUtil.isExpired(refreshToken)){
             throw new IllegalArgumentException("refresh token 만료");
         }
+
+        //category 검사
         String category=jwtUtil.getCategory(refreshToken);
         if(!"refresh".equals(category)){
             throw new IllegalArgumentException("refresh token이 아닙니다.");

@@ -31,8 +31,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
     // 로그인 요청 시 사용자 인증 처리
     @Override
-    public org.springframework.security.core.Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res)
-            throws AuthenticationException {
+    public org.springframework.security.core.Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
 
         String loginId = req.getParameter("loginId");
         String password = req.getParameter("password");
@@ -68,14 +67,14 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         Users user= userRepository.findById(userId).orElseThrow();
         RefreshToken saved=refreshTokenService.issueRefresh(user);
 
-        //refresh를 httponly 쿠키
+        //refresh를 http-only 쿠키로 저장
         int refreshMaxAgeSeconds=60*60*24*14;
         CookieUtil.addRefreshCookie(res, saved.getToken(), refreshMaxAgeSeconds);
 
-        // 헤더에 붙임
+        // header, body 둘다 access token 넣어줌
+        // header
         res.setHeader("Authorization", "Bearer " + accessToken);
-
-        // 응답 body에 accessToken 넣기
+        // body
         res.setContentType("application/json");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write("{\"accessToken\":\"" + accessToken + "\"}");
@@ -86,7 +85,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void unsuccessfulAuthentication(HttpServletRequest req, HttpServletResponse res, AuthenticationException failed) {
         res.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 401 Unauthorized 응답
     }
-
 
 }
 

@@ -48,6 +48,7 @@ public class RefreshToken extends BaseEntity{
         return rt;
     }
 
+    //token 폐기
     public void revoke(){
         this.revoked=true;
     }

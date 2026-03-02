@@ -71,7 +71,7 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, UserRepository userRepository, RefreshTokenRepository refreshTokenRepository, RefreshTokenService refreshTokenService) throws Exception{
         LoginFilter loginFilter=new LoginFilter(authenticationManager(), jwtUtil, userRepository,refreshTokenService);
-        loginFilter.setFilterProcessesUrl("/api/auth/login");
+        loginFilter.setFilterProcessesUrl("/api/auth/login"); // "/api/auth/login" 요청이 오면 loginFilter 실행
 
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource())) //cors 적용

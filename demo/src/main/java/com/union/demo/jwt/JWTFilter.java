@@ -29,9 +29,8 @@ public class JWTFilter extends OncePerRequestFilter {
         String authorization= req.getHeader("Authorization");
         String path=req.getRequestURI();
 
-
-        //로그인/회원가입은 jwt 검사를 스킵
-        if (path.equals("/api/auth/login") || path.equals("/api/auth/signup")) {
+        // 로그인 + 회원가입 + refresh api: jwt 검사를 스킵
+        if (path.equals("/api/auth/refresh")||path.equals("/api/auth/login") || path.equals("/api/auth/signup")) {
             chain.doFilter(req, res);
             return;
         }
@@ -42,6 +41,7 @@ public class JWTFilter extends OncePerRequestFilter {
             return;
         }
 
+        //token 문자열 추출
         String token=authorization.substring(7);
 
         try{
@@ -54,8 +54,9 @@ public class JWTFilter extends OncePerRequestFilter {
                 return;
             }
 
+            //token의 payload 에서 userId, role을 꺼냄
+            //유저가 로그인이 된, 인증된 유저임을 명시
             Long userId= jwtUtil.getUserId(token);
-            String loginId= jwtUtil.getLoginId(token);
             String hasRole= jwtUtil.getHasRole(token);
 
             var authorities= List.of(new SimpleGrantedAuthority(hasRole));
