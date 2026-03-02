@@ -59,10 +59,6 @@ public class JWTUtil {
         return Long.valueOf(getClaims(token).getSubject());
     }
 
-    public String getLoginId(String token) {
-        return getClaims(token).get("loginId", String.class);
-    }
-
     public String getHasRole(String token) {
         return getClaims(token).get("hasRole", String.class);
     }
