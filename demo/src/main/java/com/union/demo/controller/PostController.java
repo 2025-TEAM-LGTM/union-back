@@ -44,7 +44,7 @@ public class PostController {
 
     //2. 공고 작성 기능 "/api/posts"
     @PostMapping
-    public ResponseEntity<PostDetailResDto> createPost(
+    public ResponseEntity<ApiResponse<PostDetailResDto>> createPost(
             @AuthenticationPrincipal Long userId,
             @RequestBody @Valid PostCreateReqDto req
             ){
@@ -52,8 +52,8 @@ public class PostController {
                 .orElseThrow(()-> new IllegalArgumentException("해당 유저를 찾을 수 없습니다."));
         Long leaderId=leader.getUserId();
 
-        PostDetailResDto res=postService.createPost(leaderId,req);
-        return ResponseEntity.ok(res);
+        PostDetailResDto data=postService.createPost(leaderId,req);
+        return ResponseEntity.ok(ApiResponse.created(data));
     }
 
     //3. 공고 수정하기 "/api/posts/{postId}"
