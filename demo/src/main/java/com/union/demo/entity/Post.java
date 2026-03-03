@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Setter
 @Getter
 @Table(name="post")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -57,5 +58,6 @@ public class Post extends BaseEntity{
     public void updateSecondDomainId(Domain second){
         this.secondDomainId=second;
     }
+
 
 }
