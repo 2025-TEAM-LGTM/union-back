@@ -17,7 +17,4 @@ import java.util.stream.Collectors;
 @Builder
 public class PostDetailResDto {
     private Long postId;
-    private Long leaderId;
-    private String title;
-
 }

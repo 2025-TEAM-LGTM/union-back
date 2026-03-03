@@ -225,7 +225,8 @@ public class PostService {
                 .image(image)
                 .build();
 
-        postInfoRepository.save(postInfo);
+        PostInfo savedPostInfo =postInfoRepository.save(postInfo);
+        savedPost.setPostInfo(savedPostInfo);
 
         //currentRole 저장
         List<PostCreateReqDto.RoleCountDto> currentRoles=Optional.ofNullable(req.getCurrentRoles())
@@ -280,8 +281,6 @@ public class PostService {
         //response 만들기
         return PostDetailResDto.builder()
                 .postId(savedPost.getPostId())
-                .leaderId(leader.getUserId())
-                .title(savedPost.getTitle())
                 .build();
     }
 
@@ -434,8 +433,6 @@ public class PostService {
         Post updatedPost=postRepository.save(post);
         return PostDetailResDto.builder()
                 .postId(updatedPost.getPostId())
-                .leaderId(updatedPost.getLeaderId().getUserId())
-                .title((updatedPost.getTitle()))
                 .build();
 
     }
