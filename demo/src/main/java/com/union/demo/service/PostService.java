@@ -291,9 +291,9 @@ public class PostService {
     public PostDetailResDto updatePost(Long postId, PostUpdateReqDto req){
         //공고 조회
         Post post=postRepository.findByPostId(postId)
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 postId 입니다."+ postId));
+                .orElseThrow(()-> new NoSuchElementException("해당 공고를 찾을 수 없습니다."));
         PostInfo postInfo=postInfoRepository.findByPostPostId(postId)
-                .orElseThrow(()-> new IllegalArgumentException("postInfo를 찾을 수 없습니다."));
+                .orElseThrow(()-> new NoSuchElementException("해당 공고의 상세 info를 찾을 수 없습니다."));
 
         //수정할 권한이 있는지(작성자==로그인한 사람)
         //security util 함수를 쓸 수 있는지 확인해보자
@@ -442,6 +442,22 @@ public class PostService {
     @Transactional
     public void deletePost(Long id){
         Long postId= id;
+
+        //404 오류
+        Post post=postRepository.findByPostId(postId)
+                .orElseThrow(()-> new NoSuchElementException("해당 공고를 찾을 수 없습니다."));
+
+        //삭제 권한 있는지 검증
+        Long userId= (Long) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        if(!post.getLeaderId().getUserId().equals(userId)){
+            throw new AccessDeniedException("post update 권한이 없습니다.");
+            //403 코드가 안내려가고 500이 내려감
+        }
+
+
         postRepository.deleteByPostId(postId);
     }
 
@@ -449,7 +465,7 @@ public class PostService {
     @Transactional(readOnly = true)
     public PostPageResDto getPostDetail(Long postId){
         Post post=postRepository.findPostDetailWithRecruitRolesById(postId)
-                .orElseThrow(()-> new NoSuchElementException(postId+ " 해당 공고가 존재하지 않습니다."));
+                .orElseThrow(()-> new NoSuchElementException("해당 공고가 존재하지 않습니다."));
 
         List<PostCurrentRole> currentRoles= postCurrentRoleRepository.findByPostIdWithCurrenRole(postId);
 
