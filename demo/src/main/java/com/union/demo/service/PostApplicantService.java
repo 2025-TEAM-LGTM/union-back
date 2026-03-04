@@ -65,6 +65,8 @@ public class PostApplicantService {
     //2 공고 지원 취소하기
     @Transactional
     public ApplyResDto cancelApply(Long postId, Long userId){
+        postRepository.findByPostId(postId).orElseThrow(()-> new NoSuchElementException("해당 공고를 찾을 수 없습니다."));
+
         Applicant applicant=applicantRepository.findByPost_PostIdAndUser_UserId(postId, userId)
                 .orElseThrow(()-> new NoSuchElementException("지원 내역이 없습니다"));
 
