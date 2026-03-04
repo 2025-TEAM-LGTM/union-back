@@ -1,6 +1,7 @@
 package com.union.demo.service;
 
 import com.union.demo.dto.response.DropDownItemResDto;
+import com.union.demo.dto.response.DropdownRoleResDto;
 import com.union.demo.entity.Domain;
 import com.union.demo.entity.Role;
 import com.union.demo.entity.Skill;
@@ -39,22 +40,38 @@ public class DropdownService {
 
     //2. dropdownRole
     private final RoleRepository roleRepository;
-    public List<DropDownItemResDto> dropdownRole(Long fieldId){
+    public List<DropdownRoleResDto> dropdownRole(Long fieldId){
         List<Role> roles;
 
-        roles = roleRepository.findByField(fieldId);
+        if(fieldId==null){ //param이 없으면 전체 role 반환
+            roles=roleRepository.findAll();
+        }
+        else{
+            roles= roleRepository.findByField_FieldId(fieldId);
+        }
 
-        return roles.stream()
-                // id가 long과 integer가 섞임 - upcasting으로 해결
-                .map(r->new DropDownItemResDto(Long.valueOf(r.getRoleId()),r.getRoleName()))
-                .toList();
+        return  roles.stream()
+                .map(r -> new DropdownRoleResDto(
+                        Long.valueOf(r.getRoleId()),
+                        r.getRoleName(),
+                        Long.valueOf(r.getField().getFieldId()),
+                        r.getField().getFieldName()
+                )).toList();
     }
+
+
     //3. dropdownSkill
     private final SkillRepository skillRepository;
 
     public List<DropDownItemResDto> dropdownSkill(Integer fieldId){
         List<Skill> skills;
-        skills = skillRepository.findByField_FieldId(fieldId);
+
+        if(fieldId==null){ //param이 없으면 전체 skills 반환
+            skills=skillRepository.findAll();
+        }
+        else {
+            skills = skillRepository.findByField_FieldId(fieldId);
+        }
 
         return skills.stream()
                 .map(s->new DropDownItemResDto(Long.valueOf(s.getSkillId()), s.getSkillName()))
