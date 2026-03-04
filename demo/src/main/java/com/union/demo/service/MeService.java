@@ -68,7 +68,7 @@ public class MeService {
 
         //로그인한 유저와 profile의 주인인 유저가 서로 같은지 확인
         if(!profile.getUserId().equals(nowUserId)){
-            throw new AccessDeniedException("profile update 권한이 없습니다.");
+            throw new AccessDeniedException("프로필을 수정할 권한이 없습니다");
         }
 
         //update
@@ -188,7 +188,7 @@ public class MeService {
     //3. getPortfolios 포폴 목록 조회
     public PortfolioListResDto getPortfolioList(Long userId){
         userRepository.findByUserId(userId)
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자 입니다."+userId));
+                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 사용자 입니다."));
 
         List<Portfolio> portfolios= portfolioRepository.findPortfolioByUserId(userId);
 
@@ -259,11 +259,11 @@ public class MeService {
 
         //포트폴리오 확인
         Portfolio portfolio=portfolioRepository.findPortfolioByPortfolioId(portfolioId)
-                .orElseThrow(()-> new NoSuchElementException("존재하지 않는 포트폴리오 입니다."));
+                .orElseThrow(()-> new NoSuchElementException("해당 포트폴리오 찾을 수 없습니다."));
 
         //권한 확인: 로그인된 유저 == portfolio 작성자
         if(!portfolio.getUser().getUserId().equals(user.getUserId())){
-            throw new IllegalArgumentException("본인 포트폴리오만 수정할 수 있습니다.");
+            throw new IllegalArgumentException("포트폴리오를 수정할 권한이 없습니다.");
         }
 
         //변경
@@ -350,11 +350,11 @@ public class MeService {
 
         //포폴 존재 확인
         Portfolio portfolio=portfolioRepository.findDetailByPortfolioId(portfolioId)
-                .orElseThrow(()-> new NoSuchElementException("존재하지 않는 portfolioId입니다."));
+                .orElseThrow(()-> new NoSuchElementException("포트폴리오를 찾을 수 없습니다."));
 
         //포폴 주인과 로그인한 사람이 같은지 확인
         if(!nowUserId.equals(portfolio.getUser().getUserId())){
-            throw new AccessDeniedException("포폴 작성자와 로그인한 사람이 다릅니다. 권한 없습니다.");
+            throw new AccessDeniedException("포트폴리오를 삭제할 권한이 없습니다.");
         }
 
         portfolioRepository.deletePortfolioByPortfolioId(portfolio.getPortfolioId());
@@ -367,7 +367,7 @@ public class MeService {
                 .orElseThrow(()-> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
         Portfolio portfolio=portfolioRepository.findDetailByPortfolioId(portfolioId)
-                .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 portfolioId입니다."));
+                .orElseThrow(()-> new NoSuchElementException("해당 포트폴리오를 찾을 수 없습니다."));
 
         return PortfolioDetailResDto.from(portfolio,s3UrlResolver);
     }
