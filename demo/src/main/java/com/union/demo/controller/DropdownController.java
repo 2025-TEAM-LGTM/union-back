@@ -20,20 +20,23 @@ public class DropdownController {
         private final DropdownService dropdownService;
         //1. 대학 드롭다운 /api/dropdown/universities?q=이화
         @GetMapping("/universities")
-        public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getUniversities(@RequestParam(name = "q") String keyword){
+        public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getUniversities(
+                @RequestParam(name = "q",required = false ) String keyword){
             System.out.println("GET /universities q=" + keyword);
             return ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownUniversity(keyword)));
         }
 
         //2. field, role 드롭다운 /api/dropdown/roles?fieldId=100
         @GetMapping("/roles")
-        public ResponseEntity<ApiResponse<List<DropdownRoleResDto>>> getRoles(@RequestParam Long fieldId){
+        public ResponseEntity<ApiResponse<List<DropdownRoleResDto>>> getRoles(
+                @RequestParam(required = false) Long fieldId){
         return ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownRole(fieldId)));
     }
 
     //3. field, skill 드롭다운 /api/dropdown/skills?fieldId=100
     @GetMapping("/skills")
-    public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getSkills(@RequestParam Integer fieldId){
+    public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getSkills(
+            @RequestParam(required = false) Integer fieldId){
         return  ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownSkill(fieldId)));
     }
 

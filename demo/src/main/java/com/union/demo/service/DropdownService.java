@@ -41,8 +41,14 @@ public class DropdownService {
     //2. dropdownRole
     private final RoleRepository roleRepository;
     public List<DropdownRoleResDto> dropdownRole(Long fieldId){
+        List<Role> roles;
 
-        List<Role> roles= roleRepository.findByField_FieldId(fieldId);
+        if(fieldId==null){ //param이 없으면 전체 role 반환
+            roles=roleRepository.findAll();
+        }
+        else{
+            roles= roleRepository.findByField_FieldId(fieldId);
+        }
 
         return  roles.stream()
                 .map(r -> new DropdownRoleResDto(
@@ -59,7 +65,13 @@ public class DropdownService {
 
     public List<DropDownItemResDto> dropdownSkill(Integer fieldId){
         List<Skill> skills;
-        skills = skillRepository.findByField_FieldId(fieldId);
+
+        if(fieldId==null){ //param이 없으면 전체 skills 반환
+            skills=skillRepository.findAll();
+        }
+        else {
+            skills = skillRepository.findByField_FieldId(fieldId);
+        }
 
         return skills.stream()
                 .map(s->new DropDownItemResDto(Long.valueOf(s.getSkillId()), s.getSkillName()))
