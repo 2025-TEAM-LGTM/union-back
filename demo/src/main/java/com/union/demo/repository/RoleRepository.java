@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface RoleRepository extends JpaRepository<Role,Long> {
+public interface RoleRepository extends JpaRepository<Role,Integer> {
     Optional <Role> findByRoleId(long roleId);
 
-    List<Role> findByField(long fieldId);
+    List<Role> findByField_FieldId(long fieldId);
 
     //role로 field 찾기
     @Query(""" 

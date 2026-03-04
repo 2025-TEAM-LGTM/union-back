@@ -1,6 +1,7 @@
 package com.union.demo.controller;
 
 import com.union.demo.dto.response.DropDownItemResDto;
+import com.union.demo.dto.response.DropdownRoleResDto;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.DropdownService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class DropdownController {
 
         //2. field, role 드롭다운 /api/dropdown/roles?fieldId=100
         @GetMapping("/roles")
-        public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getRoles(@RequestParam Long fieldId){
+        public ResponseEntity<ApiResponse<List<DropdownRoleResDto>>> getRoles(@RequestParam Long fieldId){
         return ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownRole(fieldId)));
     }
 

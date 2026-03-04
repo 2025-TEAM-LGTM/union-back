@@ -1,6 +1,7 @@
 package com.union.demo.service;
 
 import com.union.demo.dto.response.DropDownItemResDto;
+import com.union.demo.dto.response.DropdownRoleResDto;
 import com.union.demo.entity.Domain;
 import com.union.demo.entity.Role;
 import com.union.demo.entity.Skill;
@@ -39,16 +40,20 @@ public class DropdownService {
 
     //2. dropdownRole
     private final RoleRepository roleRepository;
-    public List<DropDownItemResDto> dropdownRole(Long fieldId){
-        List<Role> roles;
+    public List<DropdownRoleResDto> dropdownRole(Long fieldId){
 
-        roles = roleRepository.findByField(fieldId);
+        List<Role> roles= roleRepository.findByField_FieldId(fieldId);
 
-        return roles.stream()
-                // id가 long과 integer가 섞임 - upcasting으로 해결
-                .map(r->new DropDownItemResDto(Long.valueOf(r.getRoleId()),r.getRoleName()))
-                .toList();
+        return  roles.stream()
+                .map(r -> new DropdownRoleResDto(
+                        Long.valueOf(r.getRoleId()),
+                        r.getRoleName(),
+                        Long.valueOf(r.getField().getFieldId()),
+                        r.getField().getFieldName()
+                )).toList();
     }
+
+
     //3. dropdownSkill
     private final SkillRepository skillRepository;
 
