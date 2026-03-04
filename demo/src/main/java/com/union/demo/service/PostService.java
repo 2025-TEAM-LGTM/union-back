@@ -78,8 +78,6 @@ public class PostService {
         var postDtos=posts.stream().map(p-> {
             //D-day 계산
             int dday=calcDday(p.getPostInfo().getRecruitEdate());
-            //만약 dday 입력 안되었을 때 처리
-            //int dday = calcDday(p.getPostInfo() != null ? p.getPostInfo().getRecruitEdate() : null);
 
             //recruits 정보 빌드
             var recruits= p.getRecruitRoles().stream()
@@ -467,9 +465,10 @@ public class PostService {
         Post post=postRepository.findPostDetailWithRecruitRolesById(postId)
                 .orElseThrow(()-> new NoSuchElementException("해당 공고가 존재하지 않습니다."));
 
+        int dday=calcDday(post.getPostInfo().getRecruitEdate());
         List<PostCurrentRole> currentRoles= postCurrentRoleRepository.findByPostIdWithCurrenRole(postId);
 
-        return PostPageResDto.from(post, currentRoles,s3UrlResolver);
+        return PostPageResDto.from(post, dday, currentRoles, s3UrlResolver);
     }
 
 

@@ -21,6 +21,7 @@ public class PostPageResDto {
     private Long postId;
     private LeaderDto leader;
     private String title;
+    private Integer dday;
 
     private List<Integer> domainIds;
     private RecruitPeriodDto recruitPeriod;
@@ -64,6 +65,7 @@ public class PostPageResDto {
     }
 
     public static PostPageResDto from(Post post,
+                                      Integer dday,
                                       List<PostCurrentRole> postCurrentRoles,
                                       S3UrlResolver s3UrlResolver){
 
@@ -78,6 +80,7 @@ public class PostPageResDto {
                                 .build()
                 )
                 .title(post.getTitle())
+                .dday(dday)
                 .domainIds(
                         List.of(
                                 post.getPrimeDomainId().getDomainId(),
