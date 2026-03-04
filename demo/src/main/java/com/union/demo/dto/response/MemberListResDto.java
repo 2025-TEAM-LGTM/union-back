@@ -21,7 +21,7 @@ public class MemberListResDto {
         private String username;
         private String imageUrl;
         private ItemDto role;
-        private List<ItemDto> hardSkill;
+        private List<ItemDto> hardSkills;
         private Map<PersonalityKey, Integer> personality;
     }
 
@@ -50,7 +50,7 @@ public class MemberListResDto {
                         .id(r.getRoleId())
                         .name(r.getRoleName())
                         .build())
-                .hardSkill(skills!=null ? skills:List.of())
+                .hardSkills(skills!=null ? skills:List.of())
                 .personality(user.getPersonality())
                 .build();
 

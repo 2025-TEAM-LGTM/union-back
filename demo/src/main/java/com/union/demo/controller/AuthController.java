@@ -20,6 +20,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -104,7 +105,7 @@ import java.util.Map;
 
     //2. refresh "/api/auth/refresh"
     @PostMapping("/refresh")
-    public Map<String, String> refresh(HttpServletRequest req, HttpServletResponse res){
+    public ResponseEntity<ApiResponse<?>> refresh(HttpServletRequest req, HttpServletResponse res){
         String refreshToken=extractRefreshFromCookie(req);
         RefreshTokenService.TokenPair pair= refreshTokenService.refreshAndRotate(refreshToken);
 
@@ -112,8 +113,9 @@ import java.util.Map;
         int refreshMaxAgeSeconds=60*60*24*14;
         CookieUtil.addRefreshCookie(res, pair.refreshToken(), refreshMaxAgeSeconds);
 
-        //access token 내려주기
-        return Map.of("accessToken", pair.accessToken());
+        return ResponseEntity.status(HttpStatus.OK)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + pair.accessToken())
+                .body(ApiResponse.ok());
     }
 
     private String extractRefreshFromCookie(HttpServletRequest req){

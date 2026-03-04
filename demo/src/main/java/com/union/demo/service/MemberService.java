@@ -170,7 +170,7 @@ public class MemberService{
     // getMemberProfile 함수
     public ProfileResDto getMemberProfile(Long memberId){
         Users user=userRepository.findByUserId(memberId)
-                .orElseThrow(()-> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(()-> new NoSuchElementException("사용자를 찾을 수 없습니다."));
 
         Profile profile=profileRepository.findByUserId(memberId)
                 .orElseThrow(()-> new NoSuchElementException("프로필을 찾을 수 없습니다."));
@@ -182,7 +182,7 @@ public class MemberService{
     //getMemberPortfolioList 함수: 팀원 포폴 리스트 조회
     public PortfolioListResDto getMemberPortfolioList(Long memberId){
         userRepository.findByUserId(memberId)
-                .orElseThrow(()-> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+                .orElseThrow(()-> new NoSuchElementException("사용자를 찾을 수 없습니다."));
 
         List<Portfolio> portfolio=portfolioRepository.findPortfolioByUserId(memberId);
 
