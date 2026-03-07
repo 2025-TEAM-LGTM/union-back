@@ -11,7 +11,9 @@ import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Getter
 @Builder
@@ -23,7 +25,7 @@ public class PostPageResDto {
     private String title;
     private Integer dday;
 
-    private List<Integer> domainIds;
+    private List<ItemDto> domains;
     private RecruitPeriodDto recruitPeriod;
 
     private String homepageUrl;
@@ -34,6 +36,16 @@ public class PostPageResDto {
     private String aboutUs;
     private Map<TeamCultureKey, Integer> teamCulture;
     private String imageUrl;
+
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class ItemDto{
+        private Integer id;
+        private String name;
+    }
 
     @Getter
     @Builder
@@ -81,11 +93,14 @@ public class PostPageResDto {
                 )
                 .title(post.getTitle())
                 .dday(dday)
-                .domainIds(
-                        List.of(
-                                post.getPrimeDomainId().getDomainId(),
-                                post.getSecondDomainId().getDomainId()
-                        )
+                .domains(
+                        Stream.of(post.getPrimeDomainId(), post.getSecondDomainId())
+                                .filter(Objects::nonNull)
+                                .map(d -> ItemDto.builder()
+                                        .id(d.getDomainId())
+                                        .name(d.getDomainName())
+                                        .build())
+                                .toList()
                 )
                 .recruitPeriod(
                         RecruitPeriodDto.builder()
