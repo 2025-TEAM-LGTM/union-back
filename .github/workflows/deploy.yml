@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
 
-permissions: 
+permissions:
   contents: read
   packages: write
 
@@ -26,10 +26,10 @@ jobs:
       - name: Build and Push
         uses: docker/build-push-action@v6
         with:
-           context: ./demo
-           file: ./demo/Dockerfile
-           push: true
-           tags: ghcr.io/2025-team-lgtm/union-back:latest
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ghcr.io/2025-team-lgtm/union-back:latest
 
       - uses: appleboy/ssh-action@v1.0.3
         with:
@@ -43,4 +43,3 @@ jobs:
             docker compose up -d
             
 
-          
