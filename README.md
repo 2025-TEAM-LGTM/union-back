@@ -17,7 +17,7 @@ Spring Boot 기반 REST API 서버로
 
 ## 📁 Source Code 설명
 ```text
-union-back/demo
+union-back
 ├── src/
 │   ├── main/
 │   │   ├── java/com/union/demo/
@@ -39,6 +39,9 @@ union-back/demo
 │       └── java/com/union/demo
 │           └── UnionApplicationTests.java
 ├── Dockerfile
+├── .gitattributes
+├── .gitignore
+├── run.log
 ├── pom.xml
 ├── mvnw
 └── mvnw.cmd
