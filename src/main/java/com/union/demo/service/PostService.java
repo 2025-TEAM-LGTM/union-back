@@ -9,10 +9,13 @@ import com.union.demo.entity.*;
 import com.union.demo.enums.Purpose;
 import com.union.demo.enums.RecruitStatus;
 import com.union.demo.enums.TeamCultureKey;
+import com.union.demo.event.PostCreatedEvent;
+import com.union.demo.event.PostUpdatedEvent;
 import com.union.demo.repository.*;
 import com.union.demo.utill.S3UrlResolver;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -41,6 +44,9 @@ public class PostService {
     private static final ZoneOffset KST=ZoneOffset.ofHours(9);
     private final ApplicantRepository applicantRepository;
     private final ImageRepository imageRepository;
+
+    private final VectorService vectorService; //  벡터화 기능 추가를 위한 service
+    private final ApplicationEventPublisher eventPublisher;
 
     //1. getAllPosts 전체 공고 목록 조회 * 공고 필터기능
     public PostListResDto getAllPosts(Long userId, List<Integer> domainIds, List<Integer> fieldIds, List<Integer> roleIds){
@@ -276,6 +282,9 @@ public class PostService {
         }
         postRecruitRoleRepository.saveAll(recruitRoleEntities);
 
+        // vectorize 요청
+        //vectorService.vectorizePost(savedPost.getPostId());
+        eventPublisher.publishEvent(new PostCreatedEvent(savedPost.getPostId()));
         //response 만들기
         return PostDetailResDto.builder()
                 .postId(savedPost.getPostId())
@@ -429,6 +438,9 @@ public class PostService {
         }
 
         Post updatedPost=postRepository.save(post);
+
+        eventPublisher.publishEvent(new PostUpdatedEvent(updatedPost.getPostId()));
+
         return PostDetailResDto.builder()
                 .postId(updatedPost.getPostId())
                 .build();
