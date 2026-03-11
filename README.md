@@ -1,5 +1,5 @@
 # UniON-back
-AI 기반 포트폴리오 매칭을 활용한 대학생 팀빌딩 플랫폼 **UniON**의 백엔드 서버입니다.
+AI 기반 포트폴리오 매칭을 활용한 대학생 팀빌딩 플랫폼 **UniON의 백엔드 서버**입니다.
 
 Spring Boot 기반 REST API 서버로  
 사용자 인증, 팀 모집 공고, 포트폴리오 관리, AI 매칭 기능을 제공합니다.
@@ -106,10 +106,26 @@ S3_KEY=
 S3_PUBLIC_BASE_URL=
 ```
 
-## 🚀 주요 EndPoint
+## 🚀 주요 API EndPoint
+### 인증
+- GET /api/auth/login : 로그인
+- GET /api/auth/refresh : 토큰 재발급
 
+### 내 정보 조회
+- GET /api/me/portfolio : 내가 올린 포트폴리오 목록 조회
+- GET /api/me/profile: 내 프로필 조회
+
+### 공고 조회
+- GET /api/posts : 전체 공고 목록 조회
+- GET /api/posts/{postId} : 세부 공고 내용 조회
+
+### 공고-포트폴리오 매칭 및 추천
+- POST /api/me/portfolio : 포트폴리오 작성 시 db 저장 및 공고 임베딩 vector 저장
+- POST /api/posts : 공고 작성 시 db 저장 및 임베딩 vector 저장
+- GET /api/posts/{postId}/matches : 공고에 추천된 멤버들 목록 조회
 
 
 ## 🔗 외부 서비스 연동
+
 **UniON-AI (FastAPI)**
 포트폴리오 임베딩 및 역할 매칭 알고리즘을 활용한 팀매칭 기능을 위해 연결합니다.
