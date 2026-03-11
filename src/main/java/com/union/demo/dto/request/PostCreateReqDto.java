@@ -77,6 +77,8 @@ public class PostCreateReqDto {
     private String imageKey;
     private Long imageSize;
 
+
+
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor

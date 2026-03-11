@@ -10,9 +10,13 @@ import com.union.demo.entity.*;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.enums.Purpose;
 import com.union.demo.enums.Status;
+import com.union.demo.event.PortfolioCreatedEvent;
+import com.union.demo.event.PortfolioUpdatedEvent;
+import com.union.demo.event.PostCreatedEvent;
 import com.union.demo.repository.*;
 import com.union.demo.utill.S3UrlResolver;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +38,8 @@ public class MeService {
     private final RoleRepository roleRepository;
     private final S3UrlResolver s3UrlResolver;
 
+    private final VectorService vectorService;
+    private final ApplicationEventPublisher eventPublisher;
 
     //1. getProfile 프로필 조회
     public ProfileResDto getMyProfile(Long userId){
@@ -244,6 +250,7 @@ public class MeService {
                 .build();
 
         Portfolio saved=portfolioRepository.save(newPortfolio);
+        eventPublisher.publishEvent(new PortfolioCreatedEvent(saved.getPortfolioId()));
 
         return PortfolioDetailResDto.from(saved,s3UrlResolver);
 
@@ -335,7 +342,7 @@ public class MeService {
 
         Portfolio updatedPortfolio=portfolioRepository.findPortfolioByPortfolioId(portfolioId)
                 .orElseThrow(()-> new NoSuchElementException("존재하지 않는 portfolio입니다."));
-
+        eventPublisher.publishEvent(new PortfolioUpdatedEvent(updatedPortfolio.getPortfolioId()));
         return PortfolioDetailResDto.from(updatedPortfolio,s3UrlResolver);
     }
 
