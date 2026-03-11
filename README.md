@@ -26,12 +26,12 @@ union-back
 |   |   |   ├── jwt           # jwt 관련 설정
 │   │   │   ├── security      # Spring Security, JWT 인증/인가, 필터
 │   │   │   ├── controller    # REST API의 Endpoint
-│   │   │   ├── service       # 
+│   │   │   ├── service       # 비즈니스 로직 처리 (도메인 로직, 트랜잭션 관리)
 |   |   |   ├── event         # 공고, 포트폴리오 이벤트 발생 시 fast api를 통해 AI 코드와 통신
 │   │   │   ├── repository    # JPA Repository (DB 접근)
 │   │   │   ├── dto           # 요청, 응답 dto
 │   │   │   ├── exception     # 예외 처리
-│   │   │   ├── util          #
+│   │   │   ├── util          # 여러 계층에서 공통으로 사용하는 유틸리티 클래스
 │   │   │   ├── enums         # enum 모음
 |   |   |   └── global        # 공통 에러 핸들러, 공통 응답 코드
 │   │   └── resources/
