@@ -15,7 +15,7 @@ public class VectorService {
     }
 
     public void vectorizePost(Long postId){
-        String url = "http://localhost:8000/vectorize/post";
+        String url = "http://ai:8000/vectorize/post";
 
         Map<String, Object> req = Map.of(
                 "post_id", postId
@@ -24,7 +24,7 @@ public class VectorService {
     }
 
     public void vectorizePortfolio(Long portfolioId){
-        String url = "http://localhost:8000/vectorize/portfolio";
+        String url = "http://ai:8000/vectorize/portfolio";
         Map<String, Object> req = Map.of(
                 "portfolio_id", portfolioId
         );

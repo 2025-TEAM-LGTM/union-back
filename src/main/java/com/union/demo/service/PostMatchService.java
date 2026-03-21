@@ -37,7 +37,7 @@ public class PostMatchService {
         Post post=postRepository.findByPostId(postId)
                 .orElseThrow(()-> new NoSuchElementException("해당 공고를 찾을 수 없습니다."));
 
-        String url = "http://localhost:8000/match_result";
+        String url = "http://ai:8000/match_result";
         PostMatchReqDto req = new PostMatchReqDto(postId);
 
         PostMatchResDto fastRes;
