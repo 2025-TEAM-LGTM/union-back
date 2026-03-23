@@ -14,7 +14,7 @@ public class PingService {
     }
 
     public com.union.demo.dto.response.PingResDto pingFastApi(Long postId) {
-        String url = "http://localhost:8000/ping";
+        String url = "http://ai:8000/ping";
         PingReqDto req = new PingReqDto(postId);
 
         return restTemplate.postForObject(url, req, com.union.demo.dto.response.PingResDto.class);

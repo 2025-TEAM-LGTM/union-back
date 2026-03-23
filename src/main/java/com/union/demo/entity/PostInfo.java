@@ -32,6 +32,7 @@ public class PostInfo {
     private Post post;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(name = "status")
     private RecruitStatus status;
 
