@@ -27,8 +27,8 @@ public class PostCreateReqDto {
     List<@NotNull Integer> domainIds;
 
     @Schema(example = """
-            {"startDate": "2026-01-15", 
-            "endDate": "2026-02-10" }
+            {"startDate": "2026-03-15",
+            "endDate": "2026-04-10" }
             """)
     @NotNull
     private RecruitPeriodDto recruitPeriod;
