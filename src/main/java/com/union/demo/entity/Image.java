@@ -3,6 +3,8 @@ import com.union.demo.enums.Purpose;
 import com.union.demo.enums.SizeType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "image")
@@ -20,6 +22,7 @@ public class Image {
     private String s3Key;
 
     @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     @Column(name="purpose", length = 255)
     private Purpose purpose;
 
