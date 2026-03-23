@@ -1,6 +1,7 @@
 package com.union.demo.controller;
 
 import com.union.demo.dto.response.DropDownItemResDto;
+import com.union.demo.dto.response.DropDownPersonalityResDto;
 import com.union.demo.dto.response.DropdownRoleResDto;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.DropdownService;
@@ -44,5 +45,11 @@ public class DropdownController {
     @GetMapping("/domains")
     public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getDomains(){
         return ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownDomain()));
+    }
+
+    //5. personality
+    @GetMapping("/personalities")
+    public ResponseEntity<ApiResponse<DropDownPersonalityResDto>> getPersonalityDropdown() {
+        return ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownPersonality()));
     }
 }
