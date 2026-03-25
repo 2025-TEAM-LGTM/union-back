@@ -15,7 +15,7 @@ import java.util.Map;
 @NoArgsConstructor(access= AccessLevel.PROTECTED)
 public class MemberMatchResDto {
     //프론트에 보낼 res dto
-
+    private String title;
     private List<MemberMatchDto> members;
 
     @Getter
