@@ -111,6 +111,8 @@ public class MemberService{
 
     //공고 매칭 팀원 리스트 필터링
     public MemberMatchResDto getMatchMembers(
+            Long postId,
+            String postTitle,
             List<Long> matchingUserIds,
             Map<Long, String> strengthMap,
             List<Integer> roleIds,
@@ -123,6 +125,7 @@ public class MemberService{
 
         if(users.isEmpty()){
             return MemberMatchResDto.builder()
+                    .title(postTitle)
                     .members(Collections.emptyList())
                     .build();
         }
@@ -163,6 +166,7 @@ public class MemberService{
                 .toList();
 
         return MemberMatchResDto.builder()
+                .title(postTitle)
                 .members(memberDtos)
                 .build();
     }

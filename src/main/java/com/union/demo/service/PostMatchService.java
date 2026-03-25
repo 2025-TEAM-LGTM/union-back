@@ -5,18 +5,14 @@ import com.union.demo.dto.response.MemberMatchResDto;
 import com.union.demo.dto.response.PostMatchResDto;
 import com.union.demo.dto.response.PostMatchUserDto;
 import com.union.demo.entity.Post;
-import com.union.demo.entity.Users;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.repository.PostRepository;
-import com.union.demo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,8 +30,10 @@ public class PostMatchService {
             Map<PersonalityKey,Integer> personality
 
     ) {
-        Post post=postRepository.findByPostId(postId)
-                .orElseThrow(()-> new NoSuchElementException("해당 공고를 찾을 수 없습니다."));
+        Post post = postRepository.findByPostId(postId)
+                .orElseThrow(() -> new NoSuchElementException("해당 공고를 찾을 수 없습니다."));
+
+        String postTitle = post.getTitle();
 
         String url = "http://ai:8000/match_result";
         PostMatchReqDto req = new PostMatchReqDto(postId);
@@ -45,12 +43,14 @@ public class PostMatchService {
             fastRes = restTemplate.postForObject(url, req, PostMatchResDto.class);
         } catch (RestClientException e) {
             return MemberMatchResDto.builder()
+                    .title(postTitle)
                     .members(List.of())
                     .build();
         }
 
         if (fastRes == null || fastRes.getResults() == null || fastRes.getResults().isEmpty()) {
             return MemberMatchResDto.builder()
+                    .title(postTitle)
                     .members(List.of())
                     .build();
         }
@@ -65,6 +65,7 @@ public class PostMatchService {
 
         if (matchingUserIds.isEmpty()) {
             return MemberMatchResDto.builder()
+                    .title(postTitle)
                     .members(List.of())
                     .build();
         }
@@ -80,6 +81,8 @@ public class PostMatchService {
                 ));
 
         return memberService.getMatchMembers(
+                postId,
+                postTitle,
                 matchingUserIds,
                 strengthMap,
                 roleIds,
