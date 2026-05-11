@@ -26,7 +26,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Value;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -35,8 +34,6 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    @Value("${jwt.dev-secret}")
-    private String devTokenKey;
 
     private final AuthService authService;
     private final RefreshTokenService refreshTokenService;
@@ -70,9 +67,6 @@ public class AuthController {
         Users user = userRepository.findByLoginId("devtest")
                 .orElseThrow(() -> new IllegalArgumentException("`devtest 계정을 찾을 수 없습니다."));
 
-        if (requestKey == null || !requestKey.equals(devTokenKey)) {
-            throw new IllegalArgumentException("개발용 토큰 발급 권한이 없습니다.");
-        }
         String accessToken = jwtUtil.createDevAccessJWT(
                 "access",
                 user.getUserId(),
