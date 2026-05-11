@@ -20,6 +20,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,17 +30,16 @@ import org.springframework.security.authentication.AuthenticationManager;import 
 import java.util.Arrays;
 import java.util.Map;
 
-    @RestController
-    @RequestMapping("/api/auth")
-    public class AuthController {
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/auth")
+public class AuthController {
 
-        private final AuthService authService;
-        private final RefreshTokenService refreshTokenService;
+    private final AuthService authService;
+    private final RefreshTokenService refreshTokenService;
 
-        public AuthController(AuthService authService, AuthenticationManager authenticationManager, JWTUtil jWTUtil, UserRepository userRepository, RefreshTokenService refreshTokenService) {
-        this.authService = authService;
-        this.refreshTokenService = refreshTokenService;
-    }
+    private final JWTUtil jwtUtil;
+    private final UserRepository userRepository;
 
     //1. 회원가입 "/api/auth/signup"
     @PostMapping("/signup")
@@ -57,6 +57,28 @@ import java.util.Map;
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResponse.created(data));
+    }
+
+    // 개발용 access token 발급 API
+    // GET /api/auth/dev/access-token
+    @GetMapping("/dev/access-token")
+    public ResponseEntity<ApiResponse<Map<String, String>>> getDevAccessToken() {
+        Users user = userRepository.findByLoginId("devtest")
+                .orElseThrow(() -> new IllegalArgumentException("`devtest 계정을 찾을 수 없습니다."));
+
+        String accessToken = jwtUtil.createDevAccessJWT(
+                "access",
+                user.getUserId(),
+                user.getLoginId(),
+                "ROLE_USER"
+        );
+
+        Map<String, String> data = Map.of(
+                "accessToken", accessToken,
+                "tokenType", "Bearer"
+        );
+
+        return ResponseEntity.ok(ApiResponse.ok(data));
     }
         @Operation(
                 summary = "로그인 (Swagger 문서용)",
