@@ -47,6 +47,21 @@ public class JWTUtil {
                 .compact();
     }
 
+    //개발용 테스트 계정
+    public String createDevAccessJWT(String category, Long userId, String loginId, String hasRole){
+        Date now= new Date();
+        long devExpireTime = 1000L * 60 * 60 * 24 * 90; // 90일
+
+        return Jwts.builder()
+                .subject(String.valueOf(userId))
+                .claim("category",category)
+                .claim("userId",userId)
+                .claim("hasRole",hasRole)
+                .issuedAt(now)
+                .expiration(new Date(now.getTime()+devExpireTime))
+                .signWith(secretKey)
+                .compact();
+    }
     public boolean isExpired(String token) {
         return getClaims(token).getExpiration().before(new Date());
     }
