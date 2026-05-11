@@ -15,7 +15,6 @@ spring:
 #jwt
 jwt:
   secret: ${JWT_SECRET}
-  dev-secret: ${DEV_SECRET}
 
 #s3
 cloud:
