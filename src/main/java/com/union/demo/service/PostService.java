@@ -473,14 +473,17 @@ public class PostService {
 
     //5. getDetailPost 공고 상세페이지 + 공고명 조회
     @Transactional(readOnly = true)
-    public PostPageResDto getPostDetail(Long postId){
+    public PostPageResDto getPostDetail(Long postId, Long userId){
         Post post=postRepository.findPostDetailWithRecruitRolesById(postId)
                 .orElseThrow(()-> new NoSuchElementException("해당 공고가 존재하지 않습니다."));
 
         int dday=calcDday(post.getPostInfo().getRecruitEdate());
         List<PostCurrentRole> currentRoles= postCurrentRoleRepository.findByPostIdWithCurrenRole(postId);
 
-        return PostPageResDto.from(post, dday, currentRoles, s3UrlResolver);
+        boolean applied =
+                applicantRepository.existsByPost_PostIdAndUser_UserId(postId, userId);
+
+        return PostPageResDto.from(post, dday, currentRoles, s3UrlResolver, applied);
     }
 
 

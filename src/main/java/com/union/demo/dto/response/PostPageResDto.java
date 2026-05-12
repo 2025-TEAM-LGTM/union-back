@@ -34,6 +34,7 @@ public class PostPageResDto {
     private List<RoleCountDto> recruitRoles;
     private String seeking;
     private String aboutUs;
+    private boolean applied; //지원여부
     private Map<TeamCultureKey, Integer> teamCulture;
     private String imageUrl;
 
@@ -79,7 +80,8 @@ public class PostPageResDto {
     public static PostPageResDto from(Post post,
                                       Integer dday,
                                       List<PostCurrentRole> postCurrentRoles,
-                                      S3UrlResolver s3UrlResolver){
+                                      S3UrlResolver s3UrlResolver,
+                                      boolean applied){
 
         return PostPageResDto.builder()
                 .postId(post.getPostId())
@@ -131,6 +133,7 @@ public class PostPageResDto {
                 )
                 .seeking(post.getPostInfo().getSeeking())
                 .aboutUs(post.getPostInfo().getAboutUs())
+                .applied(applied)
                 .teamCulture(post.getPostInfo().getTeamCulture())
                 .imageUrl(
                         Optional.ofNullable(post.getPostInfo())
