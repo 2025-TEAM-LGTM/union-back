@@ -3,6 +3,7 @@ package com.union.demo.service;
 import com.union.demo.dto.response.DropDownItemResDto;
 import com.union.demo.dto.response.DropDownPersonalityResDto;
 import com.union.demo.dto.response.DropdownRoleResDto;
+import com.union.demo.dto.response.DropdownSkillResDto;
 import com.union.demo.entity.Domain;
 import com.union.demo.entity.Role;
 import com.union.demo.entity.Skill;
@@ -64,7 +65,7 @@ public class DropdownService {
     //3. dropdownSkill
     private final SkillRepository skillRepository;
 
-    public List<DropDownItemResDto> dropdownSkill(Integer fieldId){
+    public List<DropdownSkillResDto> dropdownSkill(Integer fieldId){
         List<Skill> skills;
 
         if(fieldId==null){ //param이 없으면 전체 skills 반환
@@ -75,7 +76,11 @@ public class DropdownService {
         }
 
         return skills.stream()
-                .map(s->new DropDownItemResDto(Long.valueOf(s.getSkillId()), s.getSkillName()))
+                .map(s->new DropdownSkillResDto(
+                        Long.valueOf(s.getSkillId()),
+                        s.getSkillName(),
+                        Long.valueOf(s.getField().getFieldId()),
+                        s.getField().getFieldName()))
                 .toList();
 
     }

@@ -3,6 +3,7 @@ package com.union.demo.controller;
 import com.union.demo.dto.response.DropDownItemResDto;
 import com.union.demo.dto.response.DropDownPersonalityResDto;
 import com.union.demo.dto.response.DropdownRoleResDto;
+import com.union.demo.dto.response.DropdownSkillResDto;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.DropdownService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class DropdownController {
 
     //3. field, skill 드롭다운 /api/dropdown/skills?fieldId=100
     @GetMapping("/skills")
-    public ResponseEntity<ApiResponse<List<DropDownItemResDto>>> getSkills(
+    public ResponseEntity<ApiResponse<List<DropdownSkillResDto>>> getSkills(
             @RequestParam(required = false) Integer fieldId){
         return  ResponseEntity.ok(ApiResponse.ok(dropdownService.dropdownSkill(fieldId)));
     }
