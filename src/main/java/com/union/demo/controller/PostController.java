@@ -76,8 +76,10 @@ public class PostController {
 
     //5. 공고 상세 페이지 + 공고명 보기 "/api/posts/{postId}"
     @GetMapping("/{postId}")
-    public ResponseEntity<ApiResponse<PostPageResDto>> getPostDetail(@PathVariable Long postId){
-        PostPageResDto data= postService.getPostDetail(postId);
+    public ResponseEntity<ApiResponse<PostPageResDto>> getPostDetail(
+            @PathVariable Long postId,
+            @AuthenticationPrincipal Long userId){
+        PostPageResDto data= postService.getPostDetail(postId, userId);
         return ResponseEntity.ok(ApiResponse.ok(data));
     }
 
