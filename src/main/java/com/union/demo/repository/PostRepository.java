@@ -52,5 +52,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 """)
     Optional<Post> findPostDetailWithRecruitRolesById(@Param("postId") Long postId);
 
-
+    //내가 쓴 POSTID 찾기
+    @Query("""
+        select p.postId
+        from Post p
+        where p.leaderId.userId = :userId
+    """)
+    List<Long> findPostIdsByUserId(@Param("userId") Long userId);
 }

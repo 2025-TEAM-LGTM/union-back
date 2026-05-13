@@ -3,6 +3,7 @@ package com.union.demo.service;
 import com.union.demo.dto.request.PortfolioPostReqDto;
 import com.union.demo.dto.request.PortfolioUpdateReqDto;
 import com.union.demo.dto.request.ProfileUpdateReqDto;
+import com.union.demo.dto.response.MyPostIdResDto;
 import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 public class MeService {
     private final ProfileRepository profileRepository;
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
     private final UniversityRepository universityRepository;
     private final ImageRepository imageRepository;
     private final UserSkillRepository userSkillRepository;
@@ -377,5 +379,17 @@ public class MeService {
                 .orElseThrow(()-> new NoSuchElementException("해당 포트폴리오를 찾을 수 없습니다."));
 
         return PortfolioDetailResDto.from(portfolio,s3UrlResolver);
+    }
+
+    //내가 쓴 공고 id
+    @Transactional
+    public MyPostIdResDto getMyPost(Long userId){
+
+        List<Long> posts=postRepository.findPostIdsByUserId(userId);
+
+        return MyPostIdResDto.builder()
+                .postIds(posts)
+                .build();
+
     }
 }
