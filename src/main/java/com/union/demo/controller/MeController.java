@@ -3,6 +3,7 @@ package com.union.demo.controller;
 import com.union.demo.dto.request.PortfolioPostReqDto;
 import com.union.demo.dto.request.PortfolioUpdateReqDto;
 import com.union.demo.dto.request.ProfileUpdateReqDto;
+import com.union.demo.dto.response.MyPostIdResDto;
 import com.union.demo.dto.response.ProfileResDto;
 import com.union.demo.dto.response.PortfolioDetailResDto;
 import com.union.demo.dto.response.PortfolioListResDto;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/me")
 public class MeController {
     private final MeService meService;
-    private final UserRepository userRepository;
 
     //[1. 프로필]
     //1.1 프로필 정보 가져오기 /api/me/profile
@@ -95,6 +95,16 @@ public class MeController {
             @RequestBody PortfolioUpdateReqDto req
     ){
         PortfolioDetailResDto data=meService.updatePortfolio(userId, portfolioId, req);
+        return ResponseEntity.ok(ApiResponse.ok(data));
+    }
+
+
+    //내가 쓴 공고 id
+    @GetMapping("/mypost")
+    public ResponseEntity<ApiResponse<MyPostIdResDto>> getMyPostId(
+            @AuthenticationPrincipal Long userId
+    ){
+        MyPostIdResDto data=meService.getMyPost(userId);
         return ResponseEntity.ok(ApiResponse.ok(data));
     }
 }
