@@ -114,7 +114,7 @@ public class SecurityConfig {
                                 "/api/auth/refresh",
                                 "/api/auth/login",
                                 "/api/auth/dev/access-token",
-                                "/api/dropdown/*",
+                                "/api/dropdown/**",
                                 "/api/auth/username",
                                 "/api/auth/signup",
                                 "/api/auth/logout",
