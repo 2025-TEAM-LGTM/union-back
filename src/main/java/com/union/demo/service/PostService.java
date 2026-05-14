@@ -483,7 +483,12 @@ public class PostService {
         boolean applied =
                 applicantRepository.existsByPost_PostIdAndUser_UserId(postId, userId);
 
-        return PostPageResDto.from(post, dday, currentRoles, s3UrlResolver, applied);
+        //공고 글을 쓴 사람 == 공고 작성자
+        boolean owner=false;
+        if(post.getLeaderId().getUserId().equals(userId)){
+           owner=true;
+        }
+        return PostPageResDto.from(post, dday, currentRoles, s3UrlResolver, applied, owner);
     }
 
 
