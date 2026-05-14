@@ -25,6 +25,8 @@ public class PostPageResDto {
     private String title;
     private Integer dday;
 
+    private boolean owner; //작성자 여부
+
     private List<ItemDto> domains;
     private RecruitPeriodDto recruitPeriod;
 
@@ -81,7 +83,8 @@ public class PostPageResDto {
                                       Integer dday,
                                       List<PostCurrentRole> postCurrentRoles,
                                       S3UrlResolver s3UrlResolver,
-                                      boolean applied){
+                                      boolean applied,
+                                      boolean owner){
 
         return PostPageResDto.builder()
                 .postId(post.getPostId())
@@ -95,6 +98,7 @@ public class PostPageResDto {
                 )
                 .title(post.getTitle())
                 .dday(dday)
+                .owner(owner)
                 .domains(
                         Stream.of(post.getPrimeDomainId(), post.getSecondDomainId())
                                 .filter(Objects::nonNull)
