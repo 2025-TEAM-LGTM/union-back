@@ -26,6 +26,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import tools.jackson.databind.ObjectMapper;
 
 import java.util.Collections;
+import java.util.List;
 
 //CORS 설정
 //jwt 관련 보안사항들
@@ -56,7 +57,10 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource(){
         return request -> {CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:5173")); // 허용할 도메인
+            configuration.setAllowedOrigins(List.of(
+                    "http://localhost:5173",
+                    "https://match-union.vercel.app"
+            )); //도메인
         configuration.setAllowedMethods(Collections.singletonList("*")); // 모든 HTTP 메서드 허용
         configuration.setAllowCredentials(true); // 인증 정보 포함 허용
         configuration.setAllowedHeaders(Collections.singletonList("*")); // 모든 헤더 허용
