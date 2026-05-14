@@ -18,8 +18,8 @@ public class CookieUtil {
                 .httpOnly(true)
                 .path("/")
                 .maxAge(maxAgeSeconds)
-                .secure(false)  //local http
-                .sameSite("Lax") //local 개발
+                .secure(true) //배포용
+                .sameSite("None") //배포용
                 .build();
 
         res.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
