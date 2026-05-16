@@ -25,7 +25,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
                    or p.secondDomainId.domainId in :domainIds
               )
             and(pi.status = 'OPEN' )
-        order by p.postId desc
+        order by p.updatedAt desc
     """)
     List<Post> findAllWithInfoAndRecruitRoles(
             @Param("domainIds") List<Integer> domainIds,
