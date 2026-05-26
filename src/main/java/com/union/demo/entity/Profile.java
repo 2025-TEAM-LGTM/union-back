@@ -53,5 +53,6 @@ public class Profile {
     public void updateUniversity(University university){
         this.university=university;
     }
+    public void updateMajor(String major){this.major=major;}
 
 }

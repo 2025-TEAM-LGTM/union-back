@@ -366,16 +366,26 @@ public class PostService {
             }
         }
 
-        //domainId update
-        if(req.getDomainIds()!=null){
-            if(req.getDomainIds().get(0)!=null){
-                Domain prime=domainRepository.findByDomainId(req.getDomainIds().get(0))
-                        .orElseThrow(()->new IllegalArgumentException("존재하지 않는 domainInd입니다"));
+        // domainId update
+        if (req.getDomainIds() != null) {
+            List<Integer> domainIds = req.getDomainIds();
+
+            if (domainIds.isEmpty()) {
+                throw new IllegalArgumentException("domain을 최소 1개 이상 입력해야합니다.");
+            }
+
+            Integer primeDomainId = domainIds.get(0);
+            Integer secondDomainId = domainIds.size() >= 2 ? domainIds.get(1) : null;
+
+            if (primeDomainId != null) {
+                Domain prime = domainRepository.findByDomainId(primeDomainId)
+                        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 domainId입니다. " + primeDomainId));
                 post.updatePrimeDomainId(prime);
             }
-            if(req.getDomainIds().get(1)!=null){
-                Domain second=domainRepository.findByDomainId(req.getDomainIds().get(1))
-                        .orElseThrow(()-> new IllegalArgumentException("존재하지 않는 domainId입니다."));
+
+            if (secondDomainId != null) {
+                Domain second = domainRepository.findByDomainId(secondDomainId)
+                        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 domainId입니다. " + secondDomainId));
                 post.updateSecondDomainId(second);
             }
         }

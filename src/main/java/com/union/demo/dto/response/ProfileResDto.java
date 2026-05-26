@@ -20,6 +20,7 @@ public class ProfileResDto {
     private ItemDto mainRole;
     private String email;
     private UnivResDto university;
+    private String major;
     private Integer entranceYear;
     private String status;
     private List<ItemDto> hardSkills;
@@ -64,6 +65,7 @@ public class ProfileResDto {
                         .id(profile.getUniversity().getUnivId())
                         .name(profile.getUniversity().getUnivName())
                         .build())
+                .major(profile.getMajor())
                 .entranceYear(profile.getEntranceYear())
                 .status(profile.getStatus().toString())
                 .hardSkills(user.getUserSkills().stream()

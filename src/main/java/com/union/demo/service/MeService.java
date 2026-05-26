@@ -104,6 +104,10 @@ public class MeService {
             profile.updateUniversity(univ);
         }
 
+        if(req.getMajor()!=null){
+            profile.updateMajor(req.getMajor());
+        }
+
         //personality(string -> PersonalityKey)
         if(req.getPersonality()!=null){
             Map<PersonalityKey, Integer> converted=new EnumMap<>(PersonalityKey.class);
