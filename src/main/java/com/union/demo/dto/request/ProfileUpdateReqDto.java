@@ -21,6 +21,8 @@ public class ProfileUpdateReqDto {
     @Schema(example = "101")
     private Long universityId;
 
+    private String major;
+
     private Integer entranceYear;
 
     @Schema(example = "ENROLLED")
