@@ -76,8 +76,6 @@ public class PostApplicantService {
 
     }
 
-    //3. getApplicants  공고에 지원한 사람들 조회 + 필터링
-
 
 
 }
