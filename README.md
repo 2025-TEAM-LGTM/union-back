@@ -1,4 +1,4 @@
-# UniON-back
+# union-back
 AI 기반 포트폴리오 매칭을 활용한 대학생 팀빌딩 플랫폼 **UniON의 백엔드 서버**입니다.
 
 Spring Boot 기반 REST API 서버로  
