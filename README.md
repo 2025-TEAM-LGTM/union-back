@@ -105,7 +105,7 @@ S3_ACCESS_KEY=
 S3_KEY=
 S3_PUBLIC_BASE_URL=
 ```
-## 📦 Dependencies
+## 📦 Dependencies, How to build & install
 
 본 프로젝트는 Maven을 기반으로 의존성을 관리합니다.
 주요 의존성은 pom.xml에 정의되어 있으며, 백엔드 API 서버, 인증, 데이터베이스 연동 기능을 구성합니다.
@@ -118,7 +118,7 @@ S3_PUBLIC_BASE_URL=
 
 ``` ./mvnw spring-boot:run ```
 
-## 🚀 주요 API EndPoint
+## 🚀 주요 API EndPoint, How to Test
 ### 인증
 - GET /api/auth/login : 로그인
 - GET /api/auth/refresh : 토큰 재발급
