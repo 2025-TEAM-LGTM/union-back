@@ -9,8 +9,7 @@ import com.union.demo.entity.*;
 import com.union.demo.enums.Purpose;
 import com.union.demo.enums.RecruitStatus;
 import com.union.demo.enums.TeamCultureKey;
-import com.union.demo.event.PostCreatedEvent;
-import com.union.demo.event.PostUpdatedEvent;
+import com.union.demo.event.PostChangedEvent;
 import com.union.demo.repository.*;
 import com.union.demo.utill.S3UrlResolver;
 import lombok.RequiredArgsConstructor;
@@ -283,8 +282,7 @@ public class PostService {
         postRecruitRoleRepository.saveAll(recruitRoleEntities);
 
         // vectorize 요청
-        //vectorService.vectorizePost(savedPost.getPostId());
-        eventPublisher.publishEvent(new PostCreatedEvent(savedPost.getPostId()));
+        eventPublisher.publishEvent(new PostChangedEvent(savedPost.getPostId()));
         //response 만들기
         return PostDetailResDto.builder()
                 .postId(savedPost.getPostId())
@@ -449,7 +447,7 @@ public class PostService {
 
         Post updatedPost=postRepository.save(post);
 
-        eventPublisher.publishEvent(new PostUpdatedEvent(updatedPost.getPostId()));
+        eventPublisher.publishEvent(new PostChangedEvent(updatedPost.getPostId()));
 
         return PostDetailResDto.builder()
                 .postId(updatedPost.getPostId())

@@ -1,7 +1,6 @@
 package com.union.demo.global.exception;
 
 import com.union.demo.global.common.ApiErrorResponse;
-import com.union.demo.global.common.ApiResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import javax.naming.AuthenticationException;
 import java.nio.file.AccessDeniedException;
-import java.rmi.AccessException;
 import java.util.NoSuchElementException;
 
 @RestControllerAdvice

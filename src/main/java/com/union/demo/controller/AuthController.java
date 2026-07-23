@@ -34,7 +34,6 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-
     private final AuthService authService;
     private final RefreshTokenService refreshTokenService;
 
@@ -59,28 +58,6 @@ public class AuthController {
                 .body(ApiResponse.created(data));
     }
 
-    // 개발용 access token 발급 API
-    // GET /api/auth/dev/access-token
-    @GetMapping("/dev/access-token")
-    public ResponseEntity<ApiResponse<Map<String, String>>> getDevAccessToken(
-            @RequestHeader(value = "X-DEV-TOKEN-KEY", required = false) String requestKey) {
-        Users user = userRepository.findByLoginId("devtest")
-                .orElseThrow(() -> new IllegalArgumentException("`devtest 계정을 찾을 수 없습니다."));
-
-        String accessToken = jwtUtil.createDevAccessJWT(
-                "access",
-                user.getUserId(),
-                user.getLoginId(),
-                "ROLE_USER"
-        );
-
-        Map<String, String> data = Map.of(
-                "accessToken", accessToken,
-                "tokenType", "Bearer"
-        );
-
-        return ResponseEntity.ok(ApiResponse.ok(data));
-    }
         @Operation(
                 summary = "로그인 (Swagger 문서용)",
                 description = """

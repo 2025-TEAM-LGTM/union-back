@@ -2,24 +2,26 @@ package com.union.demo.controller;
 
 import com.union.demo.dto.response.PingResDto;
 import com.union.demo.service.PingService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-//fast api 연결이 잘 되는지 확인하는 controller
-//http://localhost:8080/test-python?postId=123
 @RestController
+@RequestMapping("/api/ping")
+@RequiredArgsConstructor
 public class PingController {
 
     private final PingService pingService;
 
-    public PingController(PingService pingService) {
-        this.pingService = pingService;
-    }
+    @GetMapping("/python")
+    public ResponseEntity<PingResDto> pingPython(
+            @RequestParam(name = "postId", defaultValue = "123") Long postId
+    ) {
+        PingResDto response = pingService.pingFastApi(postId);
 
-    @GetMapping("/test-python")
-    public PingResDto testPython(@RequestParam(defaultValue = "123") Long postId) {
-        return pingService.pingFastApi(postId);
+        return ResponseEntity.ok(response);
     }
 }
-
