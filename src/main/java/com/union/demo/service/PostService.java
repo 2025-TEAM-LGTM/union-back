@@ -11,7 +11,7 @@ import com.union.demo.enums.RecruitStatus;
 import com.union.demo.enums.TeamCultureKey;
 import com.union.demo.event.PostChangedEvent;
 import com.union.demo.repository.*;
-import com.union.demo.utill.S3UrlResolver;
+import com.union.demo.util.S3UrlResolver;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.context.ApplicationEventPublisher;

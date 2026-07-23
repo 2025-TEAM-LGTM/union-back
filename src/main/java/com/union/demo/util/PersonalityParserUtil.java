@@ -1,4 +1,4 @@
-package com.union.demo.utill;
+package com.union.demo.util;
 
 import com.union.demo.enums.PersonalityKey;
 import java.util.EnumMap;
