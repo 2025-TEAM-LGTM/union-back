@@ -15,10 +15,9 @@ import java.util.Map;
 @Repository
 @RequiredArgsConstructor
 public class MemberRepositoryImpl implements MemberRepositoryCustom{
-    @PersistenceContext
-    private final EntityManager em;
 
-    private final ObjectMapper objectMapper=new ObjectMapper();
+    private final EntityManager em;
+    private final ObjectMapper objectMapper;
 
     @Override
     public List<Users> searchMembers(
