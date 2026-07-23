@@ -11,7 +11,7 @@ import com.union.demo.jwt.JWTUtil;
 import com.union.demo.repository.UserRepository;
 import com.union.demo.service.AuthService;
 import com.union.demo.service.RefreshTokenService;
-import com.union.demo.utill.CookieUtil;
+import com.union.demo.util.CookieUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.headers.Header;
@@ -25,9 +25,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor

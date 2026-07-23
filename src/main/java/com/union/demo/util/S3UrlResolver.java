@@ -1,4 +1,4 @@
-package com.union.demo.utill;
+package com.union.demo.util;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

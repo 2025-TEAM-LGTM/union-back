@@ -13,7 +13,7 @@ import com.union.demo.enums.Purpose;
 import com.union.demo.enums.Status;
 import com.union.demo.event.PortfolioChangedEvent;
 import com.union.demo.repository.*;
-import com.union.demo.utill.S3UrlResolver;
+import com.union.demo.util.S3UrlResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.access.AccessDeniedException;

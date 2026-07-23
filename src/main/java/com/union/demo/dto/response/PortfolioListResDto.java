@@ -4,7 +4,7 @@ import com.union.demo.entity.Domain;
 import com.union.demo.entity.Image;
 import com.union.demo.entity.Portfolio;
 import com.union.demo.entity.Role;
-import com.union.demo.utill.S3UrlResolver;
+import com.union.demo.util.S3UrlResolver;
 import lombok.*;
 
 import java.util.List;

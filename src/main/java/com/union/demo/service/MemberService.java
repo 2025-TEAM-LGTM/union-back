@@ -4,7 +4,7 @@ import com.union.demo.dto.response.*;
 import com.union.demo.entity.*;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.repository.*;
-import com.union.demo.utill.S3UrlResolver;
+import com.union.demo.util.S3UrlResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;

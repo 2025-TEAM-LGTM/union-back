@@ -5,8 +5,7 @@ import com.union.demo.entity.Users;
 import com.union.demo.repository.UserRepository;
 import com.union.demo.security.CustomUserDetails;
 import com.union.demo.service.RefreshTokenService;
-import com.union.demo.utill.CookieUtil;
-import jakarta.annotation.PostConstruct;
+import com.union.demo.util.CookieUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,7 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.sql.rowset.serial.SerialException;
 import java.io.IOException;
 
 @RequiredArgsConstructor

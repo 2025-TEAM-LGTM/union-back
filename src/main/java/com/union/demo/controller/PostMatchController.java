@@ -1,12 +1,10 @@
 package com.union.demo.controller;
 
-import com.union.demo.dto.response.MemberListResDto;
 import com.union.demo.dto.response.MemberMatchResDto;
-import com.union.demo.dto.response.PostMatchResDto;
 import com.union.demo.enums.PersonalityKey;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.PostMatchService;
-import com.union.demo.utill.PersonalityParserUtil;
+import com.union.demo.util.PersonalityParserUtil;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

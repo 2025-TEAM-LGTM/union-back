@@ -6,7 +6,7 @@ import com.union.demo.enums.PersonalityKey;
 import com.union.demo.global.common.ApiResponse;
 import com.union.demo.service.MemberService;
 import com.union.demo.service.PostApplicantService;
-import com.union.demo.utill.PersonalityParserUtil;
+import com.union.demo.util.PersonalityParserUtil;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
